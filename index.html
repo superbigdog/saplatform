@@ -4,18 +4,22 @@
 	<meta charset="utf-8">
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1104103_xmtnyqzfoqh.css"/>
 	</head>
 	<body oncontextmenu="return false;">
 		<div class="box_top">
 			<ul class="box_ul">
-				<li class="top_items fl">Test：<span id="testName"></span></li>
-				<li class="top_items fl">App：<span id="appName"></span></li>
+				<li class="top_items fl"><i class="iconfont icon-renwu"></i><span id="testName"></span></li>
+				<li class="top_items fl"><i class="iconfont icon-apponly"></i><span id="appName"></span></li>
 				<!-- <li class="top_items fl">last modify by chujun years ago</li> -->
-				<li class="top_items fr">
-					<a href="javascript:void(0)" onclick = "saveSteps()" class="a-block">Save&Exit</a>
+				<li class="top_items fr">
+					<a href="javascript:void(0)" onclick = "runSteps()" class="a-block">Run</a>
+				</li>
+				<li class="top_items fr">
+					<a href="javascript:void(0)" onclick = "saveSteps()" class="a-block">Save</a>
 				</li>
 				<li class="top_items fr">
-					<a id="startConnection" href="javascript:void(0)" onclick="startConnection();" class="a-block">启动</a>
+					<a id="startConnection" href="javascript:void(0)" onclick="startConnection();" class="a-block"><i class="iconfont icon-qidong"></i>启动</a>
 				</li>
 			</ul>
 		</div>
@@ -29,7 +33,7 @@
 				<input id="tm_hidden_id" name="id" type="hidden" value="" />
 				<ul id="updateStep" class="ul_box box_left">
 					<li class="items">
-						<a href="javascript:void(0)" class="a-block">Enable</a><a href="javascript:void(0)" onclick="option.cancle()" class="a-block down_menu">X</a>
+						<a href="javascript:void(0)" class="a-block">Enable</a><a href="javascript:void(0)" onclick="option.cancle()" class="a-block down_menu"><i class="iconfont icon-Icon_close"></i></a>
 					</li>
 					<li class="items">
 						<p class="items_box">Step</p>
@@ -85,17 +89,6 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<!--contextMenu-->
-		<div class="contextMenu">
-			<ul>
-				<!--<li>
-					<a href="javascript:void(0);" onclick="option.updateStep();"><span class="fa fa-camera-retro"></span>修改</a>
-				</li>-->
-				<li>
-					<a href="javascript:void(0);" onclick="option.remove();"><span class="fa fa-twitter"></span>删除</a>
-				</li>
-			</ul>
-		</div>
 		<!--键盘输入  start-->
 		<div id="LoginBox">
 		  <div class="row">
@@ -112,47 +105,156 @@
 		
 		<!-- 单击shift键盘事件 start-->
 		<div id="dg_box_menu">
-		  	<ul class="ul_box_menu ul_box box_right fl">
+		  	<ul id="tcz_box" class="ul_box_menu ul_box box_right fl">
 				<li class="items box_m_items">
-					<a href="javascript:void(0)" class="a-block">X111</a>
+					<a href="javascript:void(0)" class="a-block"><i class="iconfont icon-action"></i> Actions</a><i class="iconfont icon-Icon_enter_gray"></i>
 				</li>
 				<li class="items box_m_items">
-					<a href="javascript:void(0)" class="a-block">X222</a>
-				</li>
-				<li class="items box_m_items">
-					<a href="javascript:void(0)" class="a-block">X333</a>
-				</li>
-				<li class="items box_m_items">
-					<a href="javascript:void(0)" class="a-block">X444</a>
-				</li>
-				<li class="items box_m_items">
-					<a href="javascript:void(0)" class="a-block">X555</a>
+					<a href="javascript:void(0)" class="a-block"><i class="iconfont icon-shuxing"></i> Attributes</a><i class="iconfont icon-Icon_enter_gray"></i>
 				</li>
 			</ul>
-			<ul id="box_menu" class="ul_box_menu ul_box fl">
-				<li class="items">
-					<a href="javascript:void(0)" class="a-block">X111</a>
-				</li>
-				<li class="items">
-					<a href="javascript:void(0)" class="a-block">X222</a>
-				</li>
-				<li class="items">
-					<a href="javascript:void(0)" class="a-block">X333</a>
-				</li>
-				<li class="items">
-					<a href="javascript:void(0)" class="a-block">X444</a>
-				</li>
-				<li class="items">
-					<a href="javascript:void(0)" class="a-block">X555</a>
-				</li>
-			</ul>
+			<div id="info_leftbox" class="info fl">
+				<ul class="ul_box_menu_right ul_box c_left_if">
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Click</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Flick gesture</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Get text</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Long press gesture</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Tap</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Clear contents</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">C;ocl of visible</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Double click element</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Get tag name</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Get xpath</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Is displayed now？</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Pinch gesture</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Replace element value</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Swipe to element</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Zoom gesture</a>
+					</li>
+				</ul>
+				<ul class="ul_box_menu_right ul_box c_left_if">
+					<li class="items value-item">
+						xpath<a href="javascript:void(0)" onclick="getValue(this);"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">xpahtllllllllljfsaafsadsafxpahtllllllllljfsaafsadsaf</span>
+					</li>
+					<li class="items value-item">
+						checkable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">checkable</span>
+					</li>
+					<li class="items value-item">
+						Get text<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">Get text</span>
+					</li>
+					<li class="items value-item">
+						checked<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">checked</span>
+					</li>
+					<li class="items value-item">
+						class<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">class</span>
+					</li>
+					<li class="items value-item">
+						clickable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">clickable</span>
+					</li>
+					<li class="items value-item">
+						content-desc<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">content-desc</span>
+					</li>
+					<li class="items value-item">
+						dislayed<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">dislayed</span>
+					</li>
+					<li class="items value-item">
+						enabled<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">enabled</span>
+					</li>
+					<li class="items value-item">
+						focusable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">focusable</span>
+					</li>
+					<li class="items value-item">
+						focused<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">focused</span>
+					</li>
+					<li class="items value-item">
+						index<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">index</span>
+					</li>
+					<li class="items value-item">
+						long-clickable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">long-clickable</span>
+					</li>
+					<li class="items value-item">
+						package<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">package</span>
+					</li>
+					<li class="items value-item">
+						password<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">password</span>
+					</li>
+					<li class="items value-item">
+						scrollable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">scrollable</span>
+					</li>
+					<li class="items value-item">
+						selected<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
+						<span class="value-text">selected</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<!-- 单击shift键盘事件  end -->
 		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 		<script src="socket.io.js"></script>
 		<script>
-			var caseId = getQueryString("caseId");
+			
+			function getValue(obj){
+				alert($(obj).siblings("span").text());
+			}
+			
+			$(function(){
+				$("#tcz_box").find("li").mouseover(function(){
+					var index = $(this).index();
+					var $cleft = $("#info_leftbox").find(".c_left_if").eq(index);
+					$cleft.show().siblings().hide();
+					$cleft.css("left",0);
+					$cleft.mouseleave(function(){
+						$(this).fadeOut("slow");
+					});
+				});
+			});
 			var staticPath = "http://125.76.215.206:8089/SAPlatform";
+			var caseId = getQueryString("caseId");
 			$(function(){
 				$("#appName").html(getQueryString("appName"));
 				$("#testName").html(getQueryString("testName"));
@@ -164,7 +266,7 @@
 						//console.log(JSON.stringify(data));
 						var html = "";
 						for(var i=0;i<data.length;i++){
-							html += '<li class="items" value="'+data[i].indeks+'"><a href="javascript:void(0)" onclick="option.stepInfo('+data[i].testCaseId+','+data[i].indeks+')" class="a-block">'+data[i].indeks+" "+data[i].action+'</a><a href="javascript:void(0)" onclick="shouMenu(this,'+data[i].testCaseId+','+data[i].indeks+','+data[i].id+')" class="a-block down_menu">+</a></li>';
+							html += '<li class="items" value="'+data[i].indeks+'"><a href="javascript:void(0)" onclick="option.stepInfo('+data[i].testCaseId+','+data[i].indeks+')" class="a-block">'+data[i].indeks+" "+data[i].action+'</a><a href="javascript:void(0)" onclick="option.remove('+data[i].testCaseId+','+data[i].indeks+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>';
 						}
 						$("#box_step").append(html);
 					}
@@ -235,7 +337,7 @@
 						data:$("#stepForm").serialize(),
 						success:function(data){
 							if(data=="success"){
-								window.location.reload();
+								//window.location.reload();
 								option.stepInfo(caseId,indeks);
 							}
 						}
@@ -251,21 +353,20 @@
 					$("#action_content").html('<input name="action" class="edit_input" value="'+$("#action_content").html()+'" type="text"/>');
 					$("#time_content").html('<input name="responseTime" class="edit_input" value="'+$("#time_content").html()+'" type="text"/>');
 				},
-				remove:function(){
-					var id = $(".contextMenu").data("id");
+				remove:function(caseId,indeks){
 					$.ajax({
 						type:"post",
-						url:staticPath + "/step/deleteStepById",
-						data:{id:id},
+						url:staticPath + "/step/deleteSteps",
+						data:{testCaseId:caseId,indeks:indeks},
 						success:function(data){
 							if(data=="success"){
-								window.location.reload();
+								//window.location.reload();
 							}
 						}
 					})
 				},
 				updateStep:function(){
-					option.stepInfo($(".contextMenu").data("caseid"),$(".contextMenu").data("indeks"));
+					option.stepInfo(caseId,$(".contextMenu").data("indeks"));
 					option.update();
 				}
 			}
@@ -415,7 +516,7 @@
 					context.clearRect(0, 0, 1080 / 3, 1808 / 3);
 					// console.log(maps);
 					if(maps[0]) {
-						// drawBorder_1(arrs, maps);
+						drawBorder_1(arrs, maps);
 					}
 				}
 			}
@@ -424,72 +525,56 @@
 			var step_list = [];
 
 			function drawBorder_1(arrs, map) {
-				var widget = drawBorder_1_getWidget(arrs,map);
-				var arr = map[prop]["bounds"];
-				context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
-				widget_json = JSON.stringify(map[prop]);
-				showTipBox(arr);
-			}
-			
-			
-			function drawBorder_1_getWidget(arrs,map){
-				var deep = 0;
-				var widget = null;
-				
-				
-				for(var prop in map){
+				// var flag = false;
+				for(var prop in map) {
 					var arr = map[prop]["bounds"];
-					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
-						var info = drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep);
-						
-						if(info["deep"]>deep){
-							widget = info["widget"];
+					// 		if(arrs[0]>=arr[0]/3&&arrs[1]>=arr[1]/3&&arrs[0]<arr[2]/3&&arrs[1]<arr[3]/3){
+					// 			
+					// 		}
+					if(arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
+						if(map[prop]["childMap"]) {
+							if(!judgeChildMap(arrs, map[prop]["childMap"])) {
+								drawBorder_1(arrs, map[prop]["childMap"]);
+								break;
+							} else {
+								context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
+								widget_json = JSON.stringify(map[prop]);
+								showTipBox(arr);
+							}
+						} else {
+							// context.strokeStyle="red";
+							context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
+							widget_json = JSON.stringify(map[prop]);
+							showTipBox(arr);
 						}
 					}
 				}
-				console.log(widget);
-				return widget;
-			}
-			function drawBorder_2_getWidget(arrs,map){
-				var deep = 0;
-				var temInfo = {};
-				
-			}
-			
-			function drawBorder_2_getWidget(arrs,map,deep){
-				var flag = false;
-				if(map==null){
-					return {"deep":deep,"widget":map};
-				}
-				for(var prop in map){
-					var arr = map[prop]["bounds"];
-					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
-						flag = true;
-						drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep+1);
-					}
-				}
-				if(!flag){
-					return {"deep":deep,"widget":map};
-				}
 			}
 
-			//save&exit steps
-			function saveSteps(){
-				$.ajax({
-					type:"post",
-					url:staticPath + "/api/generate/"+caseId,
-					success:function(data){
-						alert(data);
-					}
-				})
-				// alert("已存储");
-			}
+			//save&exit steps
+			function saveSteps(){
+				
+				$.ajax({
+					type:"post",
+					url:staticPath + "/api/generate/"+caseId,
+					success:function(data){
+						//alert(data);
+					}
+				})
+			}
+			
+			//按录制步骤运行脚本
+			function runSteps(){
+				
+				wsss.send("run:"+getQueryString("appName")+","+getQueryString("testName"));
+			}
+			
 			function click4Step(action,info){
 				var w = JSON.parse(widget_json);
 				console.log(w);
 				var bounds = w["bounds"].join(",");
 				var testCaseStep = {
-					"testcaseId" : caseId,
+					"testCaseId" : caseId,
 					"indeks" : step_list.length,
 					"responseTime" : 5,
 					"action" : action,
@@ -508,11 +593,10 @@
 					url:staticPath + "/step/addTestCaseSteps",
 					data:{stepListStr:JSON.stringify([testCaseStep])},
 					success:function(data){
-						alert(data);
+						console.log(step_list);
+						$("#box_step").append('<li class="items" value="'+ (step_list.length-1) +'"><a href="javascript:void(0)" onclick="option.stepInfo('+testCaseStep.testCaseId+','+testCaseStep.indeks+')" class="a-block">'+ testCaseStep.indeks + " " + testCaseStep.action + " " + testCaseStep.xpath +'</a><a href="javascript:void(0)" onclick="option.remove('+testCaseStep.testCaseId+','+testCaseStep.indeks+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>');
 					}
 				})
-				console.log(step_list);
-				$("#box_step").append('<li class="items" value="'+ (step_list.length-1) +'"><a href="javascript:void(0)" onclick="option.stepInfo()" class="a-block">'+action + " " + w["xPath"] +'</a><a href="javascript:void(0)" onclick="shouMenu(this)" class="a-block down_menu">+</a></li>');
 			}
 
 			var tipBox = document.getElementById("tipbox");
@@ -531,11 +615,9 @@
 					var arr = map[prop]["bounds"];
 					if(arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
 						flag = false;
-						// console.log(flag);
 						return flag;
 					}
 				}
-				// console.log(flag);
 				return flag;
 			}
 
@@ -556,7 +638,7 @@
 						console.log("dblclick");
 						wss.send("d 0 " + (e.pageX - left) * 3 + " " + (e.pageY - top) * 3 + " 50\nc\nu 0\nc\n");
 					}, 100);
-					click4Step("tap", "");
+					click4Step("click", "");
 				});
 
 				$("#myCanvas,#canvas").bind("mousedown", function(e) {
@@ -580,11 +662,11 @@
 						if((upFlag == true && downFlag == true) && (Math.abs(X) > 100 || Math.abs(Y) > 100)) {
 							console.log("d 0 " + startX * 3 + " " + startY * 3 + " 50\nc\nm 0 " + endX * 3 + " " + endY * 3 + " 50\nc\nu 0\nc\n");
 							wss.send("d 0 " + startX * 3 + " " + startY * 3 + " 50\nc\nm 0 " + endX * 3 + " " + endY * 3 + " 50\nc\nu 0\nc\n");
+							// click4Step("swipe",startX*3+","+startY*3+","+endX*3+ "," +endY*3);
 							downFlag = false;
 							upFlag = false;
 						}
 					}, 50);
-					// click4Step("swipe",startX*3+","+startY*3+","+endX*3+endY*3);
 				});
 
 			});
@@ -594,8 +676,7 @@
 				鼠标事件：绑定document
 			*/
 			var displayFlag = false;
-			function shouMenu(obj,caseId,indeks,id) {
-				//var top = $(this).parents("li")[0].offsetTop+parseInt($(this).parents("li").css("height"));
+			function shouMenu(obj,caseId,indeks) {
 				var top1 = parseInt($(obj).parents("li").css("height"));
 				var left1 = parseInt($(obj).parents("li").css("width"));
 				var left2 = $(obj).parents("li")[0].offsetLeft;
@@ -606,10 +687,8 @@
 					"top": top1+top2
 				});
 				displayFlag = !displayFlag;
-				//
 				$(".contextMenu").attr("data-caseid",caseId);
 				$(".contextMenu").attr("data-indeks",indeks);
-				$(".contextMenu").attr("data-id",id);
 			}
 			
 			$(document).keydown(function(event){
