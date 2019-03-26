@@ -485,7 +485,7 @@
 				for(var prop in map){
 					var arr = map[prop]["bounds"];
 					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
-						if(judgeChildMap(map[prop].childMap)){
+						if(judgeChildMap(arrs,map[prop])){
 							drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep,list);
 						}else{
 							list.push({"deep":deep,"widget":map[prop]});
@@ -494,9 +494,9 @@
 				}
 				var temp = 0;
 				for (var w in list){
-					if (w.deep >= temp){
-						temp = w.deep;
-						widget = w;
+					if (list[w].deep >= temp){
+						temp = list[w].deep;
+						widget = list[w].widget;
 					}
 				}
 				console.log(widget);
@@ -505,18 +505,16 @@
 			
 			function drawBorder_2_getWidget(arrs,map,deep,list){
 				var flag = false;
-				if(map==null){
-					list.push({"deep":deep,"widget":map});
-				}
 				for(var prop in map){
 					var arr = map[prop]["bounds"];
 					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
 						flag = true;
-						drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep+1,list);
+						if(map[prop]["childMap"]&&judgeChildMap(arrs,map[prop])){
+							drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep+1,list);
+						}else{
+							list.push({"deep":deep,"widget":map[prop]});
+						}
 					}
-				}
-				if(!flag){
-					list.push({"deep":deep,"widget":map});
 				}
 			}
 
@@ -581,15 +579,13 @@
 			}
 
 			function judgeChildMap(arrs, map) {
-				var flag = true;
-				for(var prop in map) {
-					var arr = map[prop]["bounds"];
+				for(var prop in map["childMap"]) {
+					var arr = map["childMap"][prop]["bounds"];
 					if(arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
-						flag = false;
-						return flag;
+						return true;
 					}
 				}
-				return flag;
+				return false;
 			}
 
 			var startX = 0;
