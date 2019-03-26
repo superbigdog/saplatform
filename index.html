@@ -83,8 +83,8 @@
 			<div id="tipbox">
 				<div id="arrow" class="fl"></div>
 				<div id="info" class="fl">
-					<p>xpath...</p>
-					<p><a href="javascript:void(0)" onclick="keyInput.dialog()">键盘输入</a></p>
+					<p id="info_xpath" class="info_items">xpath...</p>
+					<p class="info_items">单击Shift冻结当前元素</p>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -161,75 +161,8 @@
 						<a href="javascript:void(0)" class="a-block">Zoom gesture</a>
 					</li>
 				</ul>
-				<ul class="ul_box_menu_right ul_box c_left_if">
-					<li class="items value-item">
-						xpath<a href="javascript:void(0)" onclick="getValue(this);"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">xpahtllllllllljfsaafsadsafxpahtllllllllljfsaafsadsaf</span>
-					</li>
-					<li class="items value-item">
-						checkable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">checkable</span>
-					</li>
-					<li class="items value-item">
-						Get text<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">Get text</span>
-					</li>
-					<li class="items value-item">
-						checked<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">checked</span>
-					</li>
-					<li class="items value-item">
-						class<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">class</span>
-					</li>
-					<li class="items value-item">
-						clickable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">clickable</span>
-					</li>
-					<li class="items value-item">
-						content-desc<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">content-desc</span>
-					</li>
-					<li class="items value-item">
-						dislayed<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">dislayed</span>
-					</li>
-					<li class="items value-item">
-						enabled<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">enabled</span>
-					</li>
-					<li class="items value-item">
-						focusable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">focusable</span>
-					</li>
-					<li class="items value-item">
-						focused<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">focused</span>
-					</li>
-					<li class="items value-item">
-						index<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">index</span>
-					</li>
-					<li class="items value-item">
-						long-clickable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">long-clickable</span>
-					</li>
-					<li class="items value-item">
-						package<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">package</span>
-					</li>
-					<li class="items value-item">
-						password<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">password</span>
-					</li>
-					<li class="items value-item">
-						scrollable<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">scrollable</span>
-					</li>
-					<li class="items value-item">
-						selected<a href="javascript:void(0)"><i class="iconfont icon-copy fr"></i></a>
-						<span class="value-text">selected</span>
-					</li>
+				<ul id="content_box" class="ul_box_menu_right ul_box c_left_if">
+					
 				</ul>
 			</div>
 		</div>
@@ -237,11 +170,22 @@
 		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 		<script src="socket.io.js"></script>
 		<script>
-			
+			/**鼠标移出canvas后，取消控件信息展示**/
+			$("#myCanvas,#canvas").bind("mouseout", function(e) {
+				$("#tipbox").css("display","none");
+			});
+			/*消息提示*/
+			function tip(message,cls){
+				$("#messagetip").remove();
+				$("body").append("<div id='messagetip'><span><i class='iconfont icon-bell'></i>"+message+"</span></div>");
+				$("#messagetip").animate({top:0},1000).delay(3000).animate({top:-60}).addClass(cls);
+			}
+			/**复制事件**/
 			function getValue(obj){
+				tip("复制成功！","success");
 				alert($(obj).siblings("span").text());
 			}
-			
+			/**加载更换action和attribute菜单选项**/
 			$(function(){
 				$("#tcz_box").find("li").mouseover(function(){
 					var index = $(this).index();
@@ -253,8 +197,11 @@
 					});
 				});
 			});
+			//接口通用前缀地址
 			var staticPath = "http://125.76.215.206:8089/SAPlatform";
+			//场景用例id
 			var caseId = getQueryString("caseId");
+			/**页面初始化时  处理appname testname 及左侧已经录制过的步骤信息列表**/
 			$(function(){
 				$("#appName").html(getQueryString("appName"));
 				$("#testName").html(getQueryString("testName"));
@@ -523,31 +470,53 @@
 
 			var widget_json = "";
 			var step_list = [];
-
 			function drawBorder_1(arrs, map) {
-				// var flag = false;
-				for(var prop in map) {
+				var widget = drawBorder_1_getWidget(arrs,map);
+				var arr = map["bounds"];
+				context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
+				widget_json = JSON.stringify(map[prop]);
+				showTipBox(arr);
+			}
+			
+			function drawBorder_1_getWidget(arrs,map){
+				var deep = 0;
+				var widget = null;
+				var list = [];
+				for(var prop in map){
 					var arr = map[prop]["bounds"];
-					// 		if(arrs[0]>=arr[0]/3&&arrs[1]>=arr[1]/3&&arrs[0]<arr[2]/3&&arrs[1]<arr[3]/3){
-					// 			
-					// 		}
-					if(arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
-						if(map[prop]["childMap"]) {
-							if(!judgeChildMap(arrs, map[prop]["childMap"])) {
-								drawBorder_1(arrs, map[prop]["childMap"]);
-								break;
-							} else {
-								context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
-								widget_json = JSON.stringify(map[prop]);
-								showTipBox(arr);
-							}
-						} else {
-							// context.strokeStyle="red";
-							context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
-							widget_json = JSON.stringify(map[prop]);
-							showTipBox(arr);
+					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
+						if(judgeChildMap(map[prop].childMap)){
+							drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep,list);
+						}else{
+							list.push({"deep":deep,"widget":map[prop]});
 						}
 					}
+				}
+				var temp = 0;
+				for (var w in list){
+					if (w.deep >= temp){
+						temp = w.deep;
+						widget = w;
+					}
+				}
+				console.log(widget);
+				return widget;
+			}
+			
+			function drawBorder_2_getWidget(arrs,map,deep,list){
+				var flag = false;
+				if(map==null){
+					list.push({"deep":deep,"widget":map});
+				}
+				for(var prop in map){
+					var arr = map[prop]["bounds"];
+					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
+						flag = true;
+						drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep+1,list);
+					}
+				}
+				if(!flag){
+					list.push({"deep":deep,"widget":map});
 				}
 			}
 
@@ -602,9 +571,11 @@
 			var tipBox = document.getElementById("tipbox");
 
 			function showTipBox(bounds) {
+				var w = JSON.parse(widget_json);
 				var x = bounds[2];
 				var y = (bounds[1] + bounds[3]) / 2;
 				tipBox.setAttribute("style", "display:block;left:" + x / 3 + "px;top:" + (y / 3 - 45) + "px;");
+				$("#info_xpath").text(w.klass);
 				$("#tipbox").attr("data-x",x);
 				$("#tipbox").attr("data-y",y);
 			}
@@ -691,12 +662,147 @@
 				$(".contextMenu").attr("data-indeks",indeks);
 			}
 			
+			/**判断非空*/
+			function isEmpty(val) {
+				val = $.trim(val);
+				if (val == null)
+					return true;
+				if (val == undefined || val == 'undefined')
+					return true;
+				if (val == "")
+					return true;
+				if (val.length == 0)
+					return true;
+				if (!/[^(^\s*)|(\s*$)]/.test(val))
+					return true;
+				return false;
+			}
+			
 			$(document).keydown(function(event){
 				if(event.which == 16){
 					$("#keymask").remove();
 					$("body").append("<div id='keymask'></div>");
 					$("#keymask").addClass("mask").fadeIn("slow");
 					$("#dg_box_menu").fadeIn("slow");
+					var w = JSON.parse(widget_json);
+					var checkable = false;
+					var checked = false;
+					var clickable = false;
+					var enabled = false;
+					var focusable = false;
+					var focused = false;
+					var scrollable = false;
+					var longClickable = false;
+					var password = false;
+					var selected = false;
+					var bindFunction = w.bindFunction;
+					if(!isEmpty(bindFunction)){
+						var ables = w.bindFunction.split(",");
+						for (var i = 0; i < ables.length; i++) {
+							switch (ables[i])
+							{
+							case "01":
+							  checkable = true;
+							  break;
+							case "02":
+							  checked = true;
+							  break;
+							case "03":
+							  clickable = true;
+							  break;
+							case "04":
+							  enabled = true;
+							  break;
+							case "05":
+							  focusable = true;
+							  break;
+							case "06":
+							  focused = true;
+							  break;
+							case "07":
+							  scrollable = true;
+							  break;
+							case "08":
+							  longClickable = true;
+							  break;
+							case "09":
+							  password = true;
+							  break;
+							case "10":
+							  selected = true;
+							  break;
+							}
+						}
+					}
+					$('#content_box').append("<li class='items value-item'>"+
+					"	xpath<a href='javascript:void(0)' onclick='getValue(this);'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+w.widgetXpath+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	checkable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+checkable+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	Get text<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+w.text+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	checked<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+checked+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	class<a href='javascript:void(0)' onclick='getValue(this);'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+w.klass+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	clickable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+clickable+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	content-desc<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+w.content_desc+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	dislayed<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>dislayed</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	enabled<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+enabled+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	focusable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+focusable+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	focused<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+focused+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	index<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+w.index+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	long-clickable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+longClickable+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	package<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+w.packageName+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	password<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+password+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	scrollable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+scrollable+"</span>"+
+					"</li>"+
+					"<li class='items value-item'>"+
+					"	selected<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
+					"	<span class='value-text'>"+selected+"</span>"+
+					"</li>");
+					
 				}
 			});
 			$(document).click(function(){
