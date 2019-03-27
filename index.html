@@ -12,11 +12,16 @@
 				<li class="top_items fl"><i class="iconfont icon-renwu"></i><span id="testName"></span></li>
 				<li class="top_items fl"><i class="iconfont icon-apponly"></i><span id="appName"></span></li>
 				<!-- <li class="top_items fl">last modify by chujun years ago</li> -->
-				<li class="top_items fr">
-					<a href="javascript:void(0)" onclick = "runSteps()" class="a-block">Run</a>
-				</li>
-				<li class="top_items fr">
-					<a href="javascript:void(0)" onclick = "saveSteps()" class="a-block">Save</a>
+				<li class="top_items fr">
+
+					<a href="javascript:void(0)" onclick = "runSteps()" class="a-block">Run</a>
+
+				</li>
+
+				<li class="top_items fr">
+
+					<a href="javascript:void(0)" onclick = "saveSteps()" class="a-block">Save</a>
+
 				</li>
 				<li class="top_items fr">
 					<a id="startConnection" href="javascript:void(0)" onclick="startConnection();" class="a-block"><i class="iconfont icon-qidong"></i>启动</a>
@@ -76,7 +81,7 @@
 				</ul>
 			</form>
 		</div>
-		
+		<!-- 键盘输入事件：keyInput.dialog()-->
 		<div id="box_canvas" class="box_image fl">
 			<canvas id="canvas"></canvas>
 			<canvas id="myCanvas" tabIndex=-1></canvas>
@@ -162,13 +167,81 @@
 					</li>
 				</ul>
 				<ul id="content_box" class="ul_box_menu_right ul_box c_left_if">
-					
+					<li class="items value-item">
+						xpath<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_xpath"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_xpath" class="value-text">w.widgetXpath</span>
+					</li>
+					<li class="items value-item">
+						checkable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_checkable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_checkable" class="value-text">checkable</span>
+					</li>
+					<li class="items value-item">
+						Get text<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_text"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_text" class="value-text">w.text</span>
+					</li>
+					<li class="items value-item">
+						checked<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_checked"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_checked" class="value-text">checked</span>
+					</li>
+					<li class="items value-item">
+						class<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_klass"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_klass" class="value-text">w.klass</span>
+					</li>
+					<li class="items value-item">
+						clickable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_clickable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_clickable" class="value-text">clickable</span>
+					</li>
+					<li class="items value-item">
+						content-desc<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_content_desc"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_content_desc" class="value-text">w.content_desc</span>
+					</li>
+					<li class="items value-item">
+						dislayed<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_dislayed"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_dislayed" class="value-text">dislayed</span>
+					</li>
+					<li class="items value-item">
+						enabled<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_enabled"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_enabled" class="value-text">enabled</span>
+					</li>
+					<li class="items value-item">
+						focusable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_focusable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_focusable" class="value-text">focusable</span>
+					</li>
+					<li class="items value-item">
+						focused<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_focused"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_focused" class="value-text">focused</span>
+					</li>
+					<li class="items value-item">
+						index<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_index"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_index" class="value-text">w.index</span>
+					</li>
+					<li class="items value-item">
+						long-clickable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_longClickable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_longClickable" class="value-text">long-clickable</span>
+					</li>
+					<li class="items value-item">
+						package<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_packageName"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_packageName" class="value-text">w.packageName</span>
+					</li>
+					<li class="items value-item">
+						password<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_password"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_password" class="value-text">password</span>
+					</li>
+					<li class="items value-item">
+						scrollable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_scrollable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_scrollable" class="value-text">scrollable</span>
+					</li>
+					<li class="items value-item">
+						selected<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_selected"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_selected" class="value-text">selected</span>
+					</li>
 				</ul>
 			</div>
 		</div>
 		<!-- 单击shift键盘事件  end -->
 		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-		<script src="socket.io.js"></script>
+		<script type="text/javascript" src="js/clipboard.min.js"></script>
+		<script src="js/socket.io.js"></script>
 		<script>
 			/**鼠标移出canvas后，取消控件信息展示**/
 			$("#myCanvas,#canvas").bind("mouseout", function(e) {
@@ -179,11 +252,6 @@
 				$("#messagetip").remove();
 				$("body").append("<div id='messagetip'><span><i class='iconfont icon-bell'></i>"+message+"</span></div>");
 				$("#messagetip").animate({top:0},1000).delay(3000).animate({top:-60}).addClass(cls);
-			}
-			/**复制事件**/
-			function getValue(obj){
-				tip("复制成功！","success");
-				alert($(obj).siblings("span").text());
 			}
 			/**加载更换action和attribute菜单选项**/
 			$(function(){
@@ -196,6 +264,17 @@
 						$(this).fadeOut("slow");
 					});
 				});
+				/**剪切板功能*/
+				if($(".btnCopy").length > 0) {
+					var clipboard = new ClipboardJS('.btnCopy');
+					clipboard.on('success', function(e) {
+						console.log(e);
+						tip("复制成功！","success");
+					});
+					clipboard.on('error', function(e) {
+						console.log(e);
+					});
+				}
 			});
 			//接口通用前缀地址
 			var staticPath = "http://125.76.215.206:8089/SAPlatform";
@@ -470,9 +549,10 @@
 
 			var widget_json = "";
 			var step_list = [];
+
 			function drawBorder_1(arrs, map) {
 				var widget = drawBorder_1_getWidget(arrs,map);
-				var arr = map["bounds"];
+				var arr = widget["bounds"];
 				context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
 				widget_json = JSON.stringify(map[prop]);
 				showTipBox(arr);
@@ -518,23 +598,40 @@
 				}
 			}
 
-			//save&exit steps
-			function saveSteps(){
-				
-				$.ajax({
-					type:"post",
-					url:staticPath + "/api/generate/"+caseId,
-					success:function(data){
-						//alert(data);
-					}
-				})
-			}
-			
-			//按录制步骤运行脚本
-			function runSteps(){
-				
-				wsss.send("run:"+getQueryString("appName")+","+getQueryString("testName"));
-			}
+			//save&exit steps
+
+			function saveSteps(){
+
+				
+
+				$.ajax({
+
+					type:"post",
+
+					url:staticPath + "/api/generate/"+caseId,
+
+					success:function(data){
+
+						//alert(data);
+
+					}
+
+				})
+
+			}
+
+			
+
+			//按录制步骤运行脚本
+
+			function runSteps(){
+
+				
+
+				wsss.send("run:"+getQueryString("appName")+","+getQueryString("testName"));
+
+			}
+
 			
 			function click4Step(action,info){
 				var w = JSON.parse(widget_json);
@@ -730,75 +827,23 @@
 							}
 						}
 					}
-					$('#content_box').append("<li class='items value-item'>"+
-					"	xpath<a href='javascript:void(0)' onclick='getValue(this);'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+w.widgetXpath+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	checkable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+checkable+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	Get text<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+w.text+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	checked<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+checked+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	class<a href='javascript:void(0)' onclick='getValue(this);'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+w.klass+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	clickable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+clickable+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	content-desc<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+w.content_desc+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	dislayed<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>dislayed</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	enabled<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+enabled+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	focusable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+focusable+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	focused<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+focused+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	index<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+w.index+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	long-clickable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+longClickable+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	package<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+w.packageName+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	password<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+password+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	scrollable<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+scrollable+"</span>"+
-					"</li>"+
-					"<li class='items value-item'>"+
-					"	selected<a href='javascript:void(0)'><i class='iconfont icon-copy fr'></i></a>"+
-					"	<span class='value-text'>"+selected+"</span>"+
-					"</li>");
-					
+					$("#tm_xpath").text(w.widgetXpath);
+					$("#tm_checkable").text(checkable);
+					$("#tm_text").text(w.text);
+					$("#tm_checked").text(checked);
+					$("#tm_klass").text(w.klass);
+					$("#tm_clickable").text(clickable);
+					$("#tm_content_desc").text(w.content_desc);
+					//$("#tm_dislayed").text(w.dislayed);
+					$("#tm_enabled").text(enabled);
+					$("#tm_focusable").text(focusable);
+					$("#tm_focused").text(focused);
+					$("#tm_index").text(w.index);
+					$("#tm_longClickable").text(longClickable);
+					$("#tm_packageName").text(w.packageName);
+					$("#tm_password").text(password);
+					$("#tm_scrollable").text(scrollable);
+					$("#tm_selected").text(selected);
 				}
 			});
 			$(document).click(function(){
