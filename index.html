@@ -277,7 +277,7 @@
 				}
 			});
 			//接口通用前缀地址
-			var staticPath = "http://125.76.215.206:8089/SAPlatform";
+			var staticPath = "http://125.76.215.202:8089/SAPlatform";
 			//场景用例id
 			var caseId = getQueryString("caseId");
 			/**页面初始化时  处理appname testname 及左侧已经录制过的步骤信息列表**/
@@ -334,7 +334,7 @@
 						url:staticPath + "/step/loadSteps",
 						data:{testCaseId:caseId,indeks:indeks},
 						success:function(data){
-							console.log(JSON.stringify(data));
+							// console.log(JSON.stringify(data));
 							$("#testCaseId").val(data[0].testCaseId);
 							$("#tm_hidden_id").val(data[0].id);
 							$("#step_content").html(data[0].action + " " + data[0].klass);
@@ -474,10 +474,7 @@
 
 			/*展示控件信息*/
 			var wsss = new WebSocket("ws://127.0.0.1:16488");
-			var result = document.querySelector('#result');
-
 			wsss.onopen = function() {
-				result.innerHTML = '已连接上！';
 				console.log('已连接上！');
 			}
 			// 下面可以改成鼠标的监听器，然后将鼠标的事件一个发送个agent，另一个使用展示控件的js代码
@@ -552,10 +549,12 @@
 
 			function drawBorder_1(arrs, map) {
 				var widget = drawBorder_1_getWidget(arrs,map);
-				var arr = widget["bounds"];
-				context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
-				widget_json = JSON.stringify(map[prop]);
-				showTipBox(arr);
+				if(widget){
+					var arr = widget["bounds"];
+					context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
+					widget_json = JSON.stringify(widget);
+					showTipBox(arr);
+				}
 			}
 			
 			function drawBorder_1_getWidget(arrs,map){
@@ -579,7 +578,7 @@
 						widget = list[w].widget;
 					}
 				}
-				console.log(widget);
+				// console.log(widget);
 				return widget;
 			}
 			
