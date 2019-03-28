@@ -7,6 +7,7 @@ import org.java_websocket.WebSocket;
 
 import com.huawei.utils.AdbOptions;
 import com.huawei.utils.ParseXml;
+import com.huawei.utils.RunCase;
 
 public class AgentSocketHandlor{
 	
@@ -27,6 +28,8 @@ public class AgentSocketHandlor{
 			close();
 		}else if ("input".equals(message.substring(0,message.indexOf(":")))) {
 			AdbOptions.adbInput(message);
+		}else if ("run".equals(message.substring(0,message.indexOf(":")))) {
+			RunCase.runcase(message);
 		}else {
 			System.out.println(message);
 		}
@@ -37,7 +40,7 @@ public class AgentSocketHandlor{
 		task = new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("´¦ÀíÎÄ¼þÖÐ");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½");
 				String message = ParseXml.getXml();
 				socket.send("data:"+message);
 			}
