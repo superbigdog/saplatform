@@ -30,6 +30,8 @@ public class AgentSocketHandlor{
 			AdbOptions.adbInput(message);
 		}else if ("run".equals(message.substring(0,message.indexOf(":")))) {
 			RunCase.runcase(message);
+		}else if ("adb".equals(message.substring(0,message.indexOf(":")))) {
+			AdbOptions.executeAdb(message);
 		}else {
 			System.out.println(message);
 		}

@@ -13,9 +13,9 @@ li{list-style-type:none}
 .ul_box .items{border:1px solid #9e9e9e69;border-bottom:0px;padding: 10px 12px;}
 .ul_box .items:last-child{border-bottom:0px}
 a{text-decoration:none;color:#fff}
-.a-block{display:inline-block;width:100%;height:100%}
+.a-block{display:inline-block;width:90%;height:100%}
 #updateStep,#tm_btn_save,#tm_btn_create{display: none;}
-.items>a{width:90%;font-size: 14px;font-weight: 400;}
+.items>a{font-size: 14px;font-weight: 400;}
 .items>a.down_menu{width:10%;text-align: right;}
 #box_menu{display:none}
 .box_top{width:100%;height:60px;margin-bottom:20px;color:#fff}

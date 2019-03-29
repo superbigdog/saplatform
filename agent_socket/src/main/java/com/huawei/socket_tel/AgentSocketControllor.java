@@ -47,7 +47,7 @@ public class AgentSocketControllor {
         public void onMessage(WebSocket webSocket, String s) {
         	System.out.println("message:"+s);
 			ash.dealTheMessage(s);
-        	//ÕâÀï½ÓÊÕµ½ĞÅÏ¢È¥´¦Àí
+        	//è¿™é‡Œæ¥æ”¶åˆ°ä¿¡æ¯å»å¤„ç†
         }
 
         @Override
@@ -60,7 +60,7 @@ public class AgentSocketControllor {
         @Override
         public void start() {
         	super.start();
-        	System.out.println("µÈ´ı¿Í»§¶Ë½ÓÈë");
+        	System.out.println("ç­‰å¾…å®¢æˆ·ç«¯æ¥å…¥");
         }
         
         public void sendMessage(String message) {

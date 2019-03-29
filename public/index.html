@@ -24,14 +24,14 @@
 
 				</li>
 				<li class="top_items fr">
-					<a id="startConnection" href="javascript:void(0)" onclick="startConnection();" class="a-block"><i class="iconfont icon-qidong"></i>启动</a>
+					<a id="startConnection" href="javascript:void(0)" onclick="startConnection();"><i class="iconfont icon-qidong"></i>启动</a>
 				</li>
 			</ul>
 		</div>
 
 		<div class="cont_left fl">
 			<ul id="box_step" class='ul_box box_left fl'>
-				<li class="items">Reset App</li>
+				<li class="items"><span class="a-block">Reset App</span><a href="javascript:void(0)" onclick="option.removeAll(this)" class="a-block down_menu" title="删除所有步骤"><i class="iconfont icon-shanchu"></i></a></li>
 			</ul>
 			<form id="stepForm" class="fl">
 				<input id="testCaseId" name="testCaseId" type="hidden" value="" />
@@ -241,7 +241,7 @@
 				  html = '<p class="items_box">Input parameters</p><p class="items_box">WaitDuration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
 				  break;
 				case "swipe":
-				  html = '<p class="items_box">Input parameters</p><p class="items_box">Duration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"><p class="items_box">StartX</p><p class="items_box"><input autocomplete="off" id="StartX" class="edit_input" value="" type="text"><p class="items_box">StartY</p><p class="items_box"><input autocomplete="off" id="StartY" class="edit_input" value="" type="text"><p class="items_box">EndX</p><p class="items_box"><input autocomplete="off" id="EndX" class="edit_input" value="" type="text"><p class="items_box">EndY</p><p class="items_box"><input autocomplete="off" id="EndY" class="edit_input" value="" type="text"></p>';;
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">Duration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="2000" type="text"><p class="items_box">StartX</p><p class="items_box"><input autocomplete="off" id="StartX" class="edit_input" value="" type="text"><p class="items_box">StartY</p><p class="items_box"><input autocomplete="off" id="StartY" class="edit_input" value="" type="text"><p class="items_box">EndX</p><p class="items_box"><input autocomplete="off" id="EndX" class="edit_input" value="" type="text"><p class="items_box">EndY</p><p class="items_box"><input autocomplete="off" id="EndY" class="edit_input" value="" type="text"></p>';;
 				  break;
 				case "tap":
 				  html = '<p class="items_box">Input parameters</p><p class="items_box">x</p><p class="items_box"><input autocomplete="off" id="params_x" class="edit_input" value="" type="text"><p class="items_box">y</p><p class="items_box"><input autocomplete="off" id="params_y" class="edit_input" value="" type="text"><p class="items_box">fingers</p><p class="items_box"><input autocomplete="off" id="fingers" class="edit_input" value="" type="text"><p class="items_box">duration</p><p class="items_box"><input autocomplete="off" id="duration" class="edit_input" value="" type="text"></p>';;
@@ -344,6 +344,11 @@
 			
 			/*修改步骤信息*/
 			var option = {
+				/**
+				 * 查看步骤信息
+				 * @param {Object} caseId
+				 * @param {Object} indeks
+				 */
 				stepInfo:function(caseId,indeks){
 					$("#updateStep").css("display","block");
 					$("#tm_btn_update").css({"display":"inline-block","line-height":"22px"});
@@ -369,11 +374,16 @@
 						}
 					});
 				},
+				/**
+				 * 取消
+				 */
 				cancle:function(){
 					$("#updateStep").css("display","none");
 				},
+				/**
+				 * 更新步骤信息
+				 */
 				save:function(){
-					var caseId = $("#tm_btn_save").attr("caseid");
 					var indeks = $("#tm_btn_save").data("indeks");
 					//这里写更新业务功能  应该是需要调用更新api
 					console.log("##########"+$("#stepForm").serialize());
@@ -388,6 +398,9 @@
 						}
 					})
 				},
+				/**
+				 * 跳转到更新页面
+				 */
 				update:function(){
 					$("#tm_btn_save").css({"display":"inline-block","line-height":"22px"});
 					$("#tm_btn_update").css("display","none");
@@ -399,6 +412,11 @@
 					$("#action_content").html('<input autocomplete="off" name="action" class="edit_input" value="'+$("#action_content").html()+'" type="text"/>');
 					$("#time_content").html('<input autocomplete="off" name="responseTime" class="edit_input" value="'+$("#time_content").html()+'" type="text"/>');
 				},
+				/**
+				 * 根据索引和场景用例id删除步骤信息
+				 * @param {Object} caseId
+				 * @param {Object} indeks
+				 */
 				remove:function(caseId,indeks){
 					$.ajax({
 						type:"post",
@@ -412,10 +430,30 @@
 						}
 					})
 				},
+				/**
+				 * 根据常见用例id 批量删除步骤信息  
+				 * @param {Object} obj
+				 */
+				removeAll:function(obj){
+					$.ajax({
+						type:"post",
+						url:staticPath + "/step/deleteSteps",
+						data:{testCaseId:caseId},
+						success:function(data){
+							if(data=="success"){
+								tip("删除成功！","success");
+								$(obj).parents("li").siblings().remove();
+							}
+						}
+					})
+				},
 				updateStep:function(){
 					option.stepInfo(caseId,$(".contextMenu").data("indeks"));
 					option.update();
 				},
+				/**
+				 * 创建步骤信息
+				 */
 				create:function(){
 					stepIndex++;
 					var action = $("#action_content").text();
@@ -429,6 +467,7 @@
 					var y = $("#params_y").val();
 					var fingers = $("#fingers").val();
 					var duration = $("#duration").val();
+					
 					if(!isEmpty(message)){
 						message= "keys:" + message + ",";
 					}else{
@@ -445,7 +484,7 @@
 							message+= "fingers:" + fingers + ",";
 						}
 						if(!isEmpty(duration)){
-							message+= "duration:" + duration + ",";
+							message+= "keys:" + duration + ",";
 						}
 					}else if(action == "swipe"){
 						if(!isEmpty(startX)){
@@ -460,6 +499,11 @@
 						if(!isEmpty(endY)){
 							message+= "endY:" + endY + ",";
 						}
+					}else{//type text   key evnet等等会用到
+						var temp = tempJsonObj["bounds"];
+						//获取当前元素的坐标
+						message+= "x:" + temp[2] + ",";
+						message+= "y:" + ((temp[1] + temp[3]) / 2) + ",";
 					}
 					var testCaseStep = {
 						"testCaseId" : caseId,
@@ -480,12 +524,15 @@
 						url:staticPath + "/step/addTestCaseSteps",
 						data:{stepListStr:JSON.stringify([testCaseStep])},
 						success:function(data){
-							tip("创建成功！","success");
-							$("#box_step").append('<li class="items step'+ (stepIndex) +'" value="'+ (stepIndex) +'"><a href="javascript:void(0)" onclick="option.stepInfo('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block">'+ stepIndex + " " + testCaseStep.action + " " + testCaseStep.klass +'</a><a href="javascript:void(0)" onclick="option.remove('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>');
-							$("#updateStep").css("display","none");
-							$("#tm_btn_update").css({"display":"inline-block","line-height":"22px"});
-							$("#tm_btn_save").css("display","none");
-							$("#tm_btn_create").css("display","none");
+							if(data == "success"){
+								tip("创建成功！","success");
+								$("#box_step").append('<li class="items step'+ (stepIndex) +'" value="'+ (stepIndex) +'"><a href="javascript:void(0)" onclick="option.stepInfo('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block">'+ stepIndex + " " + testCaseStep.action + " " + testCaseStep.klass +'</a><a href="javascript:void(0)" onclick="option.remove('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>');
+								$("#updateStep").css("display","none");
+								$("#tm_btn_update").css({"display":"inline-block","line-height":"22px"});
+								$("#tm_btn_save").css("display","none");
+								$("#tm_btn_create").css("display","none");
+								wsss.send("adb:"+action+","+message);
+							}
 						}
 					})
 				}
@@ -513,7 +560,8 @@
 			var context = myCanvas.getContext("2d");
 			context.fillStyle = 'rgba(255, 255, 255, 0)';
 			context.lineWidth = "2";
-			
+			myCanvas.width = 0;
+			myCanvas.height = 0;
 
 			var ws = new WebSocket('ws://localhost:9002', 'minicap')
 			ws.binaryType = 'blob'
@@ -535,8 +583,10 @@
 				img.onload = function() {
 					canvas.width = img.width;
 					canvas.height = img.height;
-					myCanvas.width = img.width;
-					myCanvas.height = img.height;
+					if(myCanvas.width == 0 || myCanvas.height == 0){
+						myCanvas.width = img.width;
+						myCanvas.height = img.height;
+					}
 					g.drawImage(img, 0, 0)
 					img.onload = null
 					img.src = BLANK_IMG
@@ -685,35 +735,18 @@
 			//save&exit steps
 
 			function saveSteps(){
-
-				
-
 				$.ajax({
-
 					type:"post",
-
 					url:staticPath + "/api/generate/"+caseId,
-
 					success:function(data){
-
-						//alert(data);
-
+						tip("保存成功！","success");
 					}
-
 				})
-
 			}
 
-			
-
 			//按录制步骤运行脚本
-
 			function runSteps(){
-
-				
-
 				wsss.send("run:"+getQueryString("appName")+","+getQueryString("testName"));
-
 			}
 
 			
