@@ -124,49 +124,25 @@
 			<div id="info_leftbox" class="info fl">
 				<ul class="ul_box_menu_right ul_box c_left_if">
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('click')" class="a-block">Click</a>
+						<a href="javascript:void(0)" onclick="createElementStep('click')" class="a-block">click</a>
 					</li>
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Flick gesture')" class="a-block">Flick gesture</a>
+						<a href="javascript:void(0)" onclick="createElementStep('double click')" class="a-block">double click</a>
 					</li>
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Get text')" class="a-block">Get text</a>
+						<a href="javascript:void(0)" onclick="createElementStep('long press')" class="a-block">long press</a>
 					</li>
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Long press gesture')" class="a-block">Long press gesture</a>
+						<a href="javascript:void(0)" onclick="createElementStep('type text')" class="a-block">type text</a>
 					</li>
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Tap')" class="a-block">Tap</a>
+						<a href="javascript:void(0)" onclick="createElementStep('tap')" class="a-block">tap</a>
 					</li>
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Clear contents')" class="a-block">Clear contents</a>
+						<a href="javascript:void(0)" onclick="createElementStep('swipe')" class="a-block">swipe</a>
 					</li>
 					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Click if visible')" class="a-block">Click if visible</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Double click element')" class="a-block">Double click element</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Get tag name')" class="a-block">Get tag name</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Get xpath')" class="a-block">Get xpath</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Is displayed now？')" class="a-block">Is displayed now？</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Pinch gesture')" class="a-block">Pinch gesture</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Replace element value')" class="a-block">Replace element value</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Swipe to element')" class="a-block">Swipe to element</a>
-					</li>
-					<li class="items">
-						<a href="javascript:void(0)" onclick="createElementStep('Zoom gesture')" class="a-block">Zoom gesture</a>
+						<a href="javascript:void(0)" onclick="createElementStep('key event')" class="a-block">key event</a>
 					</li>
 				</ul>
 				<ul id="content_box" class="ul_box_menu_right ul_box c_left_if">
@@ -252,14 +228,23 @@
 				var html = '';//默认值  click
 				switch (action)
 				{
-				case "Long press gesture":
+				case "key event":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">keys</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "type text":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">keys</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "long press":
 				  html = '<p class="items_box">Input parameters</p><p class="items_box">Duration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
 				  break;
-				case "Double click element":
+				case "double click":
 				  html = '<p class="items_box">Input parameters</p><p class="items_box">WaitDuration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
 				  break;
-				case "Swipe to element":
+				case "swipe":
 				  html = '<p class="items_box">Input parameters</p><p class="items_box">Duration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"><p class="items_box">StartX</p><p class="items_box"><input autocomplete="off" id="StartX" class="edit_input" value="" type="text"><p class="items_box">StartY</p><p class="items_box"><input autocomplete="off" id="StartY" class="edit_input" value="" type="text"><p class="items_box">EndX</p><p class="items_box"><input autocomplete="off" id="EndX" class="edit_input" value="" type="text"><p class="items_box">EndY</p><p class="items_box"><input autocomplete="off" id="EndY" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "tap":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">x</p><p class="items_box"><input autocomplete="off" id="params_x" class="edit_input" value="" type="text"><p class="items_box">y</p><p class="items_box"><input autocomplete="off" id="params_y" class="edit_input" value="" type="text"><p class="items_box">fingers</p><p class="items_box"><input autocomplete="off" id="fingers" class="edit_input" value="" type="text"><p class="items_box">duration</p><p class="items_box"><input autocomplete="off" id="duration" class="edit_input" value="" type="text"></p>';;
 				  break;
 				default:
 				  html = '';
@@ -433,26 +418,48 @@
 				},
 				create:function(){
 					stepIndex++;
+					var action = $("#action_content").text();
 					var bounds = tempJsonObj["bounds"].join(",");
 					var message = $("#param_message").val();
 					var startX = $("#StartX").val();
 					var endX = $("#EndX").val();
 					var startY = $("#StartY").val();
 					var endY = $("#EndY").val();
+					var x = $("#params_x").val();
+					var y = $("#params_y").val();
+					var fingers = $("#fingers").val();
+					var duration = $("#duration").val();
 					if(!isEmpty(message)){
 						message= "keys:" + message + ",";
+					}else{
+						message = "";
 					}
-					if(!isEmpty(startX)){
-						message+= "startX:" + startX + ",";
-					}
-					if(!isEmpty(startY)){
-						message+= "startY:" + startY + ",";
-					}
-					if(!isEmpty(endX)){
-						message+= "endX:" + endX + ",";
-					}
-					if(!isEmpty(endY)){
-						message+= "endY:" + endY + ",";
+					if(action == "tap"){
+						if(!isEmpty(x)){
+							message+= "x:" + x + ",";
+						}
+						if(!isEmpty(y)){
+							message+= "y:" + y + ",";
+						}
+						if(!isEmpty(fingers)){
+							message+= "fingers:" + fingers + ",";
+						}
+						if(!isEmpty(duration)){
+							message+= "duration:" + duration + ",";
+						}
+					}else if(action == "swipe"){
+						if(!isEmpty(startX)){
+							message+= "startX:" + startX + ",";
+						}
+						if(!isEmpty(startY)){
+							message+= "startY:" + startY + ",";
+						}
+						if(!isEmpty(endX)){
+							message+= "endX:" + endX + ",";
+						}
+						if(!isEmpty(endY)){
+							message+= "endY:" + endY + ",";
+						}
 					}
 					var testCaseStep = {
 						"testCaseId" : caseId,
@@ -501,9 +508,12 @@
 
 			var canvas = document.getElementById('canvas'),
 				g = canvas.getContext('2d')
-			var mainWidth = 0;
-			var mainHeight = 0;
-
+			
+			var myCanvas = document.getElementById("myCanvas");
+			var context = myCanvas.getContext("2d");
+			context.fillStyle = 'rgba(255, 255, 255, 0)';
+			context.lineWidth = "2";
+			
 			var ws = new WebSocket('ws://localhost:9002', 'minicap')
 			ws.binaryType = 'blob'
 
@@ -522,11 +532,10 @@
 				var URL = window.URL || window.webkitURL
 				var img = new Image()
 				img.onload = function() {
-					console.log(img.width, img.height)
-					canvas.width = img.width
-					canvas.height = img.height
-					mainWidth = img.width;
-					mainHeight = img.height;
+					canvas.width = img.width;
+					canvas.height = img.height;
+					myCanvas.width = img.width;
+					myCanvas.height = img.height;
 					g.drawImage(img, 0, 0)
 					img.onload = null
 					img.src = BLANK_IMG
@@ -537,12 +546,7 @@
 				var u = URL.createObjectURL(blob)
 				img.src = u
 			}
-
-			function setWidthHeight(width, height) {
-				mainWidth = width;
-				mainHeight = height;
-			}
-
+			
 			ws.onopen = function() {
 				console.log('onopen', arguments)
 				ws.send('1920x1080/0')
@@ -593,14 +597,6 @@
 				console.log('连接已关闭！');
 			}
 
-			var myCanvas = document.getElementById("myCanvas");
-			// var myCanvas = document.getElementById("canvas");
-			myCanvas.width = mainWidth/3;
-			myCanvas.height = mainHeight/3;
-			var context = myCanvas.getContext("2d");
-			context.fillStyle = 'rgba(255, 255, 255, 0)';
-			context.lineWidth = "2";
-
 			document.getElementById("myCanvas").onmousemove = function(e) {
 				var arrs = mouseMove(e);
 				drawBorder(arrs);
@@ -627,7 +623,7 @@
 				if(jsonStr) {
 					jsons = jsonStr;
 					var maps = JSON.parse(jsons);
-					context.clearRect(0, 0, mainWidth / 3, mainHeight / 3);
+					context.clearRect(0, 0, myCanvas.width , myCanvas.height);
 					// console.log(maps);
 					if(maps[0]) {
 						drawBorder_1(arrs, maps);
