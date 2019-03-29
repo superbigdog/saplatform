@@ -513,8 +513,9 @@
 			var context = myCanvas.getContext("2d");
 			context.fillStyle = 'rgba(255, 255, 255, 0)';
 			context.lineWidth = "2";
+			myCanvas.width = 0;
+			myCanvas.height = 0;
 			
-
 			var ws = new WebSocket('ws://localhost:9002', 'minicap')
 			ws.binaryType = 'blob'
 
@@ -535,8 +536,10 @@
 				img.onload = function() {
 					canvas.width = img.width;
 					canvas.height = img.height;
-					myCanvas.width = img.width;
-					myCanvas.height = img.height;
+					if(myCanvas.width==0||myCanvas.height==0){
+						myCanvas.width = img.width;
+						myCanvas.height = img.height;
+					}
 					g.drawImage(img, 0, 0)
 					img.onload = null
 					img.src = BLANK_IMG
@@ -551,7 +554,7 @@
 				console.log('onopen', arguments)
 				ws.send('1920x1080/0')
 			}
-
+			
 			/**利用websocket通信去发信息到node**/
 			var wss = new WebSocket('ws://localhost:9003');
 
