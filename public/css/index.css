@@ -1,0 +1,65 @@
+*{padding:0px;margin:0px}
+body{background:url(../images/bg.png)}
+#canvas,#myCanvas{position:absolute;}
+#tipbox{position:relative;display:none;width:280px;height:85px;color: #fff;}
+.ipt-message{position:relative;width:220px;left:300px;display:none;}
+#arrow{width:0px;height:0px;border:10px solid #061728;border-color:transparent #061728 transparent transparent;margin:35px 0px 0px -10px}
+#info{width:260px;height:85px;background-color:#061728;border-radius:3px}
+.clear{clear:both}
+li{list-style-type:none}
+.fl{float:left}
+.fr{float:right}
+.ul_box{width:300px;margin-left:10px;background:#061728;color:#fff;margin: 2px;}
+.ul_box .items{border:1px solid #9e9e9e69;border-bottom:0px;padding: 10px 12px;}
+.ul_box .items:last-child{border-bottom:0px}
+a{text-decoration:none;color:#fff}
+.a-block{display:inline-block;width:100%;height:100%}
+#updateStep,#tm_btn_save,#tm_btn_create{display: none;}
+.items>a{width:90%;font-size: 14px;font-weight: 400;}
+.items>a.down_menu{width:10%;text-align: right;}
+#box_menu{display:none}
+.box_top{width:100%;height:60px;margin-bottom:20px;color:#fff}
+.box_ul{width:100%;height:100%;background:#008b8bb8}
+.box_ul li{padding:10px 30px;border-right:1px solid #ddd;line-height:40px}
+.box_image{width:360px;height:640px}
+.contextMenu{background:#9e9e9e;display:none;position:fixed}
+.contextMenu li{width:60px;border-bottom:1px dotted #fff;line-height:35px;padding-left:5px;transition:all 0.3s ease}
+.contextMenu li a{display:block}
+.contextMenu li .fa{margin-right:10px}
+.contextMenu li:hover{background:gray;transition:all 0.3s ease}
+/*键盘输入样式*/
+.mask,.keymask{margin:0;padding:0;border:none;width:100%;height:100%;background:#333;opacity:0.8;filter:alpha(opacity=80);z-index:100000;position:fixed;top:0;left:0;display:none;}
+#LoginBox,#dg_box_menu{position:fixed;left:50%;top:35%;border-radius:2px;z-index:100001;display:none;}
+
+.row{height:60px;line-height:60px;padding:0px 40px;text-align: center}
+.inputBox input.inpt{border:1px solid #ccc;width:240px;height:38px;text-indent:10px;border-radius: 4px;}
+#loginbtn{border:0px;font-size:16px;color:White;background:#44a9aa;text-decoration:none;border-radius:5px;line-height:32px;margin: 0px 15px;padding: 2px 20px;}
+.cont_left{width:630px;height:300px;padding:0px 20px;}
+.items_box{word-break: break-all;line-height: 1.5;font-size:14px;}
+.link_text{color:#00e5ff}
+.btn-box{padding:10px;text-align: center;}
+.btn{line-height:32px;background:#44a9aa;border-radius:4px;font-size:16px;padding:5px 15px;margin-right:20px}
+
+ul.ul_box_menu{width:200px;}
+ul.ul_box_menu_right{width:200px;overflow-y: scroll;overflow-x: hidden; max-height:320px;}
+
+.edit_input{background: #102131;border:1px solid #102131;line-height:24px;width:100%;color:#fff;margin-bottom: 5px;border-radius: 3px;}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);border-radius:4px;background-color:#9e9e9e}
+::-webkit-scrollbar-thumb{border-radius:4px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);background-color:#555}
+
+.info{width:240px;height:320px;position:absolute;left:205px;overflow:hidden;z-index:100000}
+.info .c_left_if{display:none;position:relative;}
+
+.value-text{color:hsla(0,0%,100%,.5);display:block}
+
+/*消息提示组件*/
+#messagetip{height:60px;color:#fff;font-size:16px;font-weight:600;line-height:60px;text-align:center;color:#fff;position:fixed;top:-60px;left:0;width:100%;z-index:100002}
+.success{background:rgba(0, 128, 0, 0.95);}
+.warn{background:rgba(228, 55, 55, 0.95);}
+
+.info_items{padding:8px 3px;}
+
+#updateStep{overflow-y: scroll;overflow-x: hidden; max-height:800px;}

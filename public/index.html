@@ -465,7 +465,7 @@
 						"testCaseId" : caseId,
 						"indeks" : stepIndex,
 						"responseTime" : 5,
-						"action" : $("#action_content").text(),
+						"action" : action,
 						"xpath" : tempJsonObj.widgetXpath,
 						"text" : tempJsonObj.text,
 						"resourceId" :　tempJsonObj.tesource_id,
@@ -514,6 +514,7 @@
 			context.fillStyle = 'rgba(255, 255, 255, 0)';
 			context.lineWidth = "2";
 			
+
 			var ws = new WebSocket('ws://localhost:9002', 'minicap')
 			ws.binaryType = 'blob'
 
@@ -546,7 +547,6 @@
 				var u = URL.createObjectURL(blob)
 				img.src = u
 			}
-			
 			ws.onopen = function() {
 				console.log('onopen', arguments)
 				ws.send('1920x1080/0')
