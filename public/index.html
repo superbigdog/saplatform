@@ -71,7 +71,7 @@
 						<p class="items_box">Step Timeout</p>
 						<p class="items_box"><a id="time_content" href="javascript:void(0)" class="link_text">0ms</a></p>
 						<p class="items_box">Step Repeats</p>
-						<p class="items_box"><a id="repeat_content" href="javascript:void(0)" class="link_text">1</a></p>
+						<p class="items_box" id="repeats_content">1</p>
 					</li>
 					<li class="items">
 						<p class="btn-box">
@@ -92,7 +92,7 @@
 				<div id="arrow" class="fl"></div>
 				<div id="info" class="fl">
 					<p id="info_xpath" class="info_items">xpath...</p>
-					<p class="info_items">单击Shift冻结当前元素</p>
+					<p class="info_items">Ctrl+Spaces组合键冻结当前元素</p>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -126,9 +126,9 @@
 					<li class="items">
 						<a href="javascript:void(0)" onclick="createElementStep('click')" class="a-block">click</a>
 					</li>
-					<li class="items">
+					<!--<li class="items">
 						<a href="javascript:void(0)" onclick="createElementStep('double click')" class="a-block">double click</a>
-					</li>
+					</li>-->
 					<li class="items">
 						<a href="javascript:void(0)" onclick="createElementStep('long press')" class="a-block">long press</a>
 					</li>
@@ -295,7 +295,7 @@
 				}
 			});
 			//接口通用前缀地址
-			var staticPath = "http://125.76.215.206:8089/SAPlatform";
+			var staticPath = "http://125.76.215.202:8089/SAPlatform";
 			//场景用例id
 			var caseId = getQueryString("caseId");
 			/**页面初始化时  处理appname testname 及左侧已经录制过的步骤信息列表**/
@@ -368,6 +368,7 @@
 							$("#klass_content").html(data[0].klass);
 							$("#action_content").html(data[0].action);
 							$("#time_content").html(data[0].responseTime);
+							$("#repeats_content").html(data[0].repeats);
 							$("#tm_btn_save").attr("data-caseid",caseId);
 							$("#tm_btn_save").attr("data-indeks",indeks);
 							$("#repeat_content").html(data[0].responseTime);
@@ -407,10 +408,11 @@
 					$("#tm_btn_create").css("display","none");
 					$("#step_content").html('<input autocomplete="off" name="step" class="edit_input" value="'+$("#step_content").html()+'" type="text"/>');
 					$("#comment_content").html('<input autocomplete="off" name="comments" class="edit_input" value="'+$("#comment_content").html()+'" type="text"/>');
-					$("#xpath_content").html('<input autocomplete="off" name="xpath" class="edit_input" value="'+$("#xpath_content").html()+'" type="text"/>');
+					$("#xpath_content").html('<textarea rows="6" name="xpath" class="edit_input">'+$("#xpath_content").html()+'</textarea>');
 					$("#klass_content").html('<input autocomplete="off" name="klass" class="edit_input" value="'+$("#klass_content").html()+'" type="text"/>');
 					$("#action_content").html('<input autocomplete="off" name="action" class="edit_input" value="'+$("#action_content").html()+'" type="text"/>');
 					$("#time_content").html('<input autocomplete="off" name="responseTime" class="edit_input" value="'+$("#time_content").html()+'" type="text"/>');
+					$("#repeats_content").html('<input autocomplete="off" name="repeats" class="edit_input" value="'+$("#repeats_content").html()+'" type="text"/>');
 				},
 				/**
 				 * 根据索引和场景用例id删除步骤信息
@@ -888,7 +890,7 @@
 			}
 			
 			$(document).keydown(function(event){
-				if(event.which == 16){
+				if(event.keyCode == 32 && event.ctrlKey) { //这里只能用alt，shift，ctrl等去组合其他键event.altKey、event.ctrlKey、event.shiftKey 属性
 					$("#keymask").remove();
 					$("body").append("<div id='keymask'></div>");
 					$("#keymask").addClass("mask").fadeIn("slow");
@@ -944,6 +946,7 @@
 						}
 					}
 					$("#tm_xpath").text(w.widgetXpath);
+					$("#tm_xpath").parents("li.value-item").attr("title",w.widgetXpath);
 					$("#tm_checkable").text(checkable);
 					$("#tm_text").text(w.text);
 					$("#tm_checked").text(checked);

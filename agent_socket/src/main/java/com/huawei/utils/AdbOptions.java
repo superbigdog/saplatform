@@ -37,7 +37,7 @@ public class AdbOptions {
 			try {
 				switch (maps.get("adb").toString().trim()) {
 				case "tap":
-					Runtime.getRuntime().exec("cmd /c adb shell input tap " + Integer.parseInt(maps.get("x").toString().trim()) + " " + Integer.parseInt(maps.get("y").toString().trim()));
+					Runtime.getRuntime().exec("cmd /c adb shell input tap " + Double.valueOf(maps.get("x").toString().trim()).intValue() + " " + Double.valueOf(maps.get("y").toString().trim()).intValue());
 					break;
 				case "key event":
 					Runtime.getRuntime().exec("cmd /c adb shell input keyevent " + maps.get("keys").toString().trim());
@@ -48,7 +48,7 @@ public class AdbOptions {
 					Runtime.getRuntime().exec("cmd /c adb shell input text " + maps.get("keys").toString().trim());
 					break;
 				case "long press":
-					Runtime.getRuntime().exec("cmd /c adb shell input swipe  " + maps.get("x").toString().trim() + " " + maps.get("y").toString().trim() + maps.get("x").toString().trim() + " " + maps.get("y").toString().trim()+ " " + maps.get("keys").toString().trim());
+					Runtime.getRuntime().exec("cmd /c adb shell input swipe  " + (Double.valueOf(maps.get("x").toString().trim()).intValue()-130) + " " + Double.valueOf(maps.get("y").toString().trim()).intValue() + " " + (Double.valueOf(maps.get("x").toString().trim()).intValue()-130) + " " + Double.valueOf(maps.get("y").toString().trim()).intValue()+ " " + maps.get("keys").toString().trim());
 					break;
 				case "double click":
 					break;

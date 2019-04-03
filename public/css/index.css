@@ -41,7 +41,7 @@ a{text-decoration:none;color:#fff}
 .btn{line-height:32px;background:#44a9aa;border-radius:4px;font-size:16px;padding:5px 15px;margin-right:20px}
 
 ul.ul_box_menu{width:200px;}
-ul.ul_box_menu_right{width:200px;overflow-y: scroll;overflow-x: hidden; max-height:320px;}
+ul.ul_box_menu_right{width:300px;overflow-y: scroll;overflow-x: hidden; max-height:320px;}
 
 .edit_input{background: #102131;border:1px solid #102131;line-height:24px;width:100%;color:#fff;margin-bottom: 5px;border-radius: 3px;}
 
@@ -50,7 +50,7 @@ ul.ul_box_menu_right{width:200px;overflow-y: scroll;overflow-x: hidden; max-heig
 ::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);border-radius:4px;background-color:#9e9e9e}
 ::-webkit-scrollbar-thumb{border-radius:4px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);background-color:#555}
 
-.info{width:240px;height:320px;position:absolute;left:205px;overflow:hidden;z-index:100000}
+.info{width:340px;height:320px;position:absolute;left:205px;overflow:hidden;z-index:100000}
 .info .c_left_if{display:none;position:relative;}
 
 .value-text{color:hsla(0,0%,100%,.5);display:block}
@@ -61,5 +61,5 @@ ul.ul_box_menu_right{width:200px;overflow-y: scroll;overflow-x: hidden; max-heig
 .warn{background:rgba(228, 55, 55, 0.95);}
 
 .info_items{padding:8px 3px;}
-
+#tm_xpath,#tm_klass,#tm_packageName{white-space:nowrap;overflow: hidden;text-overflow:ellipsis; }
 #updateStep{overflow-y: scroll;overflow-x: hidden; max-height:800px;}
