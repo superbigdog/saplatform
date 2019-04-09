@@ -24,7 +24,7 @@
 
 				</li>
 				<li class="top_items fr">
-					<a id="startConnection" href="javascript:void(0)" onclick="startConnection();"><i class="iconfont icon-qidong"></i>启动</a>
+					<a id="startConnection" href="javascript:void(0)" style="color: #ed1c24;"><i class="iconfont icon-qidong"></i>启动</a>
 				</li>
 			</ul>
 		</div>
@@ -311,7 +311,7 @@
 						var html = "";
 						for(var i=0;i<data.length;i++){
 							stepIndex = data[i].indeks;
-							html += '<li class="items step'+data[i].indeks+'" value="'+data[i].indeks+'"><a href="javascript:void(0)" onclick="option.stepInfo('+data[i].testCaseId+','+data[i].indeks+')" class="a-block">'+data[i].indeks+" "+data[i].action+" "+data[i].klass+'</a><a href="javascript:void(0)" onclick="option.remove('+data[i].testCaseId+','+data[i].indeks+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>';
+							html += '<li class="items step'+data[i].indeks+'" value="'+data[i].indeks+'"><a href="javascript:void(0)" onclick="option.stepInfo('+data[i].testCaseId+','+data[i].indeks+')" class="a-block"><span class="step_index">'+data[i].indeks+'</span>'+data[i].action+" "+data[i].klass+'</a><a href="javascript:void(0)" onclick="option.remove('+data[i].testCaseId+','+data[i].indeks+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>';
 						}
 						$("#box_step").append(html);
 					}
@@ -428,6 +428,12 @@
 							if(data=="success"){
 								tip("删除成功！","success");
 								$(".step"+indeks).remove();
+								stepIndex--;
+								var _index = 0;
+								$("#box_step li").each(function(){
+									$(this).find("span.step_index").html(_index);
+									_index++;
+								});
 							}
 						}
 					})
@@ -622,6 +628,9 @@
 
 			wsss.onopen = function() {
 				console.log('已连接上！');
+				document.getElementById("startConnection").style.color="#fff";
+				document.getElementById("startConnection").innerHTML="启动";
+				document.getElementById("startConnection").onclick = startConnection;
 			}
 			// 下面可以改成鼠标的监听器，然后将鼠标的事件一个发送个agent，另一个使用展示控件的js代码
 			/*
@@ -646,8 +655,11 @@
 			}
 			wsss.onclose = function() {
 				console.log('连接已关闭！');
+				document.getElementById("startConnection").style.color="#ed1c24";
+				document.getElementById("startConnection").innerHTML="连接关闭";
+				document.getElementById("startConnection").onclick = "#";
 			}
-
+			
 			document.getElementById("myCanvas").onmousemove = function(e) {
 				var arrs = mouseMove(e);
 				drawBorder(arrs);
@@ -695,8 +707,10 @@
 			
 			function drawBorder_1_getWidget(arrs,map){
 				var deep = 0;
-				var widget = null;
+				var widget_d = null;
+				var widget_s = null;
 				var list = [];
+				var square = myCanvas.width*myCanvas.height;
 				for(var prop in map){
 					var arr = map[prop]["bounds"];
 					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
@@ -711,11 +725,18 @@
 				for (var w in list){
 					if (list[w].deep >= temp){
 						temp = list[w].deep;
-						widget = list[w].widget;
+						widget_d = list[w].widget;
+					}
+					if(list[w].square<=square){
+						square = list[w].square;
+						widget_s = list[w].widget;
 					}
 				}
-				// console.log(widget);
-				return widget;
+				if(widget_d == widget_s){
+					return widget_d;
+				}else{
+					return widget_s;
+				}
 			}
 			
 			function drawBorder_2_getWidget(arrs,map,deep,list){
@@ -727,7 +748,7 @@
 						if(map[prop]["childMap"]&&judgeChildMap(arrs,map[prop])){
 							drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep+1,list);
 						}else{
-							list.push({"deep":deep,"widget":map[prop]});
+							list.push({"deep":deep,"widget":map[prop],"square":(arr[2]-arr[0])*(arr[3]-arr[1])});
 						}
 					}
 				}
