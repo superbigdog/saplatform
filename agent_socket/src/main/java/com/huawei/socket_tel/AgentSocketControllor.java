@@ -1,10 +1,6 @@
 package com.huawei.socket_tel;
 
-import java.awt.print.Printable;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.NotYetConnectedException;
-import java.util.Scanner;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -17,7 +13,21 @@ public class AgentSocketControllor {
 	private static AgentSocketControllor asc = new AgentSocketControllor();
 	
 	public static void main(String[] args) {
-		asc.mss.start();
+		Thread t1 = new Thread(){
+			@Override
+			public void run() {
+				asc.mss.start();
+			}
+		};
+		Thread t2 = new Thread() {
+			@Override
+			public void run() {
+				MiniCall call = new MiniCall();
+				call.start();
+			}
+		};
+		t1.start();
+		t2.start();
 	}
 	
 	private class MysocketServer extends WebSocketServer{
@@ -47,7 +57,6 @@ public class AgentSocketControllor {
         public void onMessage(WebSocket webSocket, String s) {
         	System.out.println("message:"+s);
 			ash.dealTheMessage(s);
-        	//这里接收到信息去处理
         }
 
         @Override
@@ -60,7 +69,7 @@ public class AgentSocketControllor {
         @Override
         public void start() {
         	super.start();
-        	System.out.println("等待客户端接入");
+        	System.out.println("the session for parsing xml is waiting for connecting");
         }
         
         public void sendMessage(String message) {

@@ -7,6 +7,7 @@ import org.java_websocket.WebSocket;
 
 import com.huawei.utils.AdbOptions;
 import com.huawei.utils.ParseXml;
+import com.huawei.utils.RunAppium;
 import com.huawei.utils.RunCase;
 
 public class AgentSocketHandlor{
@@ -26,13 +27,16 @@ public class AgentSocketHandlor{
 			handlor();
 		}else if ("stop".equals(message)) {
 			close();
+			RunAppium.closeAppium();
 		}else if ("input".equals(message.substring(0,message.indexOf(":")))) {
 			AdbOptions.adbInput(message);
 		}else if ("run".equals(message.substring(0,message.indexOf(":")))) {
 			RunCase.runcase(message);
 		}else if ("adb".equals(message.substring(0,message.indexOf(":")))) {
 			AdbOptions.executeAdb(message);
-		}else {
+		}else if ("openapp".equals(message.substring(0,message.indexOf(":")))) {
+			AdbOptions.openApp(message);
+		}else{
 			System.out.println(message);
 		}
 	}
@@ -42,13 +46,13 @@ public class AgentSocketHandlor{
 		task = new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("�����ļ���");
+//				System.out.println("parse xml file");
 				String message = ParseXml.getXml();
 				socket.send("data:"+message);
 			}
 		};
 		
-		timer.schedule(task, 1000, 1200);
+		timer.schedule(task, 0, 900);
 	}
 	
 	public void close() {

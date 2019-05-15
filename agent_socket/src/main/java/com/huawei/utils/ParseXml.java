@@ -1,16 +1,12 @@
 package com.huawei.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.huawei.content.Content;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -22,15 +18,14 @@ import com.huawei.utils.CMDutils;
 
 public class ParseXml {
 	
-	private static String adbConmand = "";
-	private static String xmlPath = "D:/saTest/";
+	private static String xmlPath = "./tmp/";
 	
 	public static String getXml() {
 		getLogicInterfaceXML("0.xml");
 		Map<String, Widget> map = parseXML(xmlPath+"0.xml");
 		String message = transforJson(map);
 //		System.out.println(list.get(0));
-		System.out.println(message);
+//		System.out.println(message);
 		return message;
 	}
 	
@@ -46,7 +41,7 @@ public class ParseXml {
 	
 	/**
 	 * 将xml文件内容读进list,并且该list符合树状建构
-	 * @param xmlName
+	 * @param xmlPath
 	 * @return
 	 */
 	public static Map<String, Widget> parseXML(String xmlPath) {
@@ -58,7 +53,7 @@ public class ParseXml {
 				Document dom = sax.read(file);
 				Element root = dom.getRootElement();
 				map = getElement(root);
-				System.out.println("xml解析完成");
+//				System.out.println("xml解析完成");
 			} catch (DocumentException e) {
 				e.printStackTrace();
 				System.out.println(xmlPath + "parse has occurd some error");
@@ -70,10 +65,8 @@ public class ParseXml {
 	}
 	
 	/**
-	 * 
-	 * @param list
+	 *
 	 * @param root
-	 * @param index
 	 */
 	private static Map<String,Widget> getElement(Element root){
 		Map<String, Widget> map = new HashMap<String, Widget>();
@@ -151,9 +144,9 @@ public class ParseXml {
 	}
 	
 	private static void getLogicInterfaceXML(String file_name)  {
-		System.out.println("获取逻辑界面文件");
-		String adbDump = "cmd /c adb shell /system/bin/uiautomator dump /data/local/tmp/app.xml";
-		String adbpull = "cmd /c adb pull /data/local/tmp/app.xml " + xmlPath + file_name ;
+//		System.out.println("获取逻辑界面文件");
+		String adbDump = "cmd /c " + Content.ADB + " shell /system/bin/uiautomator dump /data/local/tmp/app.xml";
+		String adbpull = "cmd /c " + Content.ADB + " pull /data/local/tmp/app.xml " + xmlPath + file_name ;
 		File file = new File(xmlPath + file_name);
 		if (file.exists()) {
 			file.delete();
@@ -191,5 +184,6 @@ public class ParseXml {
 	
 	public static void main(String[] args) {
 //		dealBounds("[1,2,3,4]");
+		getLogicInterfaceXML("0.xml");
 	}
 }
