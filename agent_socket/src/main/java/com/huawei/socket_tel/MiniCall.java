@@ -47,10 +47,10 @@ public class MiniCall {
 		try {
 			t_init.start();
 			Thread.sleep(1000*2);
-			t_touch.start();
-			Thread.sleep(1000*2);
-			t_dbclick.start();
-			Thread.sleep(1000);
+//			t_touch.start();
+//			Thread.sleep(1000*2);
+//			t_dbclick.start();
+//			Thread.sleep(1000);
 			t_app.start();
 			System.out.println("get ready!!!");
 		} catch (InterruptedException e) {
@@ -75,16 +75,16 @@ public class MiniCall {
 		CMDutils.excuteCMD(Content.ADB + " push " + soFile + " /data/local/tmp");
 		CMDutils.excuteCMD(Content.ADB + " shell chmod 777 data/local/tmp/minicap.so");
 		String cappath = ".\\saplatform\\minicap\\libs\\minicap\\"+info.get("cpu");
-		String touchpath = ".\\saplatform\\minicap\\libs\\minitouch\\"+info.get("cpu");
+//		String touchpath = ".\\saplatform\\minicap\\libs\\minitouch\\"+info.get("cpu");
 		CMDutils.excuteCMD(Content.ADB + " push "+ cappath + "//minicap" + " /data/local/tmp");
-		CMDutils.excuteCMD(Content.ADB + " push "+ touchpath + "/minitouch" + " /data/local/tmp");
-		CMDutils.excuteCMD(Content.ADB + " push "+ touchpath + "/minitouch-nopie" + " /data/local/tmp");
+//		CMDutils.excuteCMD(Content.ADB + " push "+ touchpath + "/minitouch" + " /data/local/tmp");
+//		CMDutils.excuteCMD(Content.ADB + " push "+ touchpath + "/minitouch-nopie" + " /data/local/tmp");
 		CMDutils.excuteCMD(Content.ADB + " shell chmod 777 data/local/tmp/minicap");
-		CMDutils.excuteCMD(Content.ADB + " shell chmod 777 data/local/tmp/minitouch");
-		CMDutils.excuteCMD(Content.ADB + " shell chmod 777 data/local/tmp/minitouch-nopie");
+//		CMDutils.excuteCMD(Content.ADB + " shell chmod 777 data/local/tmp/minitouch");
+//		CMDutils.excuteCMD(Content.ADB + " shell chmod 777 data/local/tmp/minitouch-nopie");
 		System.out.println(info);
 		CMDutils.excuteCMD(Content.ADB + " forward tcp:1717 localabstract:minicap");
-		CMDutils.excuteCMD(Content.ADB + " forward tcp:2058 localabstract:minitouch");//准备反向控制
+//		CMDutils.excuteCMD(Content.ADB + " forward tcp:2058 localabstract:minitouch");//准备反向控制
 		CMDutils.excuteCMD(Content.ADB + " shell LD_LIBRARY_PATH=/data/local/tmp /data/local/tmp/minicap -P "
 				+ info.get("size") +"@"+ info.get("width") +'x'+ info.get("height") +"/0");
 	}
@@ -163,14 +163,13 @@ public class MiniCall {
 
         @Override
         public void onError(WebSocket webSocket, Exception e) {
-            System.out.println("error");
+            System.out.println("dbclick accepter error");
 //            ash.close();
         }
         
         
         @Override
-        public void start() {
-        	super.start();
+        public void onStart() {
         	System.out.println("screenshot session is waiting for connecting");
         }
         
@@ -186,7 +185,7 @@ public class MiniCall {
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String line=null;
 			while ((line=br.readLine())!=null) {
-//				System.out.println(line);
+				System.out.println(line);
 			}
 		} catch (IOException e) {
             e.printStackTrace();

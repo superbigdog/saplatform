@@ -61,14 +61,13 @@ public class AgentSocketControllor {
 
         @Override
         public void onError(WebSocket webSocket, Exception e) {
-            System.out.println("error");
+            System.out.println("main message accepter error");
 //            ash.close();
         }
         
         
         @Override
-        public void start() {
-        	super.start();
+        public void onStart() {
         	System.out.println("the session for parsing xml is waiting for connecting");
         }
         
