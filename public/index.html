@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1104103_xmtnyqzfoqh.css"/>
+	</head>
+	<body oncontextmenu="return false;">
+		<div class="box_top">
+			<ul class="box_ul">
+				<li class="top_items fl"><i class="iconfont icon-renwu"></i><span id="testName"></span></li>
+				<li class="top_items fl"><i class="iconfont icon-apponly"></i><span id="appName"></span></li>
+				<!-- <li class="top_items fl">last modify by chujun years ago</li> -->
+				<li class="top_items fr">
+
+					<a href="javascript:void(0)" onclick = "runSteps()" class="a-block">Run</a>
+
+				</li>
+
+				<li class="top_items fr">
+
+					<a href="javascript:void(0)" onclick = "saveSteps()" class="a-block">Save</a>
+
+				</li>
+				<li class="top_items fr">
+					<a id="startConnection" href="javascript:void(0)" style="color: #ed1c24;"><i class="iconfont icon-qidong"></i>启动</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="cont_left fl">
+			<ul id="box_step" class='ul_box box_left fl'>
+				<li class="items"><span class="a-block">Reset App</span><a href="javascript:void(0)" onclick="option.removeAll(this)" class="a-block down_menu" title="删除所有步骤"><i class="iconfont icon-shanchu"></i></a></li>
+			</ul>
+			<form id="stepForm" class="fl">
+				<input id="testCaseId" name="testCaseId" type="hidden" value="" />
+				<input id="tm_hidden_id" name="id" type="hidden" value="" />
+				<ul id="updateStep" class="ul_box box_left">
+					<li class="items">
+						<a href="javascript:void(0)" class="a-block">Enable</a><a href="javascript:void(0)" onclick="option.cancle()" class="a-block down_menu"><i class="iconfont icon-Icon_close"></i></a>
+					</li>
+					<li class="items">
+						<p class="items_box">Step</p>
+						<p id="step_content" class="items_box">Launch the app</p>
+						<p class="items_box">Comments</p>
+						<p class="items_box"><a id="comment_content" href="javascript:void(0)" class="link_text"></a></p>
+					</li>
+					<li class="items">
+						<p class="items_box">Type</p>
+						<p class="items_box"><a href="javascript:void(0)" class="link_text">Action</a></p>
+					</li>
+					<li class="items">
+						<p class="items_box">Element</p>
+						<p class="items_box"><a id="klass_content" href="javascript:void(0)" class="link_text"></a></p>
+						<p id="xpath_content" class="items_box"></p>
+						<p class="items_box">Action</p>
+						<p class="items_box"><a id="action_content" href="javascript:void(0)" class="link_text">Click</a></p>
+					</li>
+					<li id="input_params" class="items">
+					</li>
+					<li class="items">
+						<p class="items_box">On Failure Behaviour</p>
+						<p class="items_box"><a href="javascript:void(0)" class="link_text">Fail Test</a></p>
+						<p class="items_box">Take Screenshot</p>
+						<p class="items_box"><a href="javascript:void(0)" class="link_text">Failure</a></p>
+					</li>
+					<li class="items">
+						<p class="items_box">Step Pause</p>
+						<p class="items_box"><a href="javascript:void(0)" class="link_text">Pause for 1000ms after executing step</a></p>
+						<p class="items_box">Step Timeout</p>
+						<p class="items_box"><a id="time_content" href="javascript:void(0)" class="link_text">0ms</a></p>
+						<p class="items_box">Step Repeats</p>
+						<p class="items_box" id="repeats_content">1</p>
+					</li>
+					<li class="items">
+						<p class="btn-box">
+							<a id="tm_btn_update" href="javascript:void(0)" onclick="option.update()" class="btn">修改</a>
+							<a id="tm_btn_save" href="javascript:void(0)" onclick="option.save()" class="btn">保存</a>
+							<a id="tm_btn_create" href="javascript:void(0)" onclick="option.create()" class="btn">创建</a>
+							<a href="javascript:void(0)" onclick="option.cancle()" class="btn">取消</a>
+						</p>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<!-- 键盘输入事件：keyInput.dialog()-->
+		<div id="box_canvas" class="box_image fl">
+			<canvas id="canvas"></canvas>
+			<canvas id="myCanvas" tabIndex=-1></canvas>
+			<div id="tipbox">
+				<div id="arrow" class="fl"></div>
+				<div id="info" class="fl">
+					<p id="info_xpath" class="info_items">xpath...</p>
+					<p class="info_items">Ctrl+Spaces组合键冻结当前元素</p>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!--键盘输入  start-->
+		<div id="LoginBox">
+		  <div class="row">
+		      <span class="inputBox">
+		          <input type="text" class="inpt" id="message" placeholder="键盘输入文本信息" autofocus="autofocus"/>
+		      </span>
+		  </div>
+		  <div class="row">
+		      <input id="loginbtn" type="button" onclick="keyInput.commitInput()" class="submit_btn" value="确定" />
+		      <input id="loginbtn" type="button" onclick="keyInput.cancle()" class="submit_btn" value="取消" />
+		    </div>
+		</div>
+		<!--键盘输入  end-->
+		
+		<!-- 单击shift键盘事件 start-->
+		<div id="dg_box_menu">
+		  	<ul id="tcz_box" class="ul_box_menu ul_box box_right fl">
+				<li class="items box_m_items">
+					<a href="javascript:void(0)" class="a-block"><i class="iconfont icon-action"></i> Actions</a><i class="iconfont icon-Icon_enter_gray"></i>
+				</li>
+				<li class="items box_m_items">
+					<a href="javascript:void(0)" class="a-block"><i class="iconfont icon-shuxing"></i> Attributes</a><i class="iconfont icon-Icon_enter_gray"></i>
+				</li>
+			</ul>
+			<div id="info_leftbox" class="info fl">
+				<ul class="ul_box_menu_right ul_box c_left_if">
+					<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('click')" class="a-block">click</a>
+					</li>
+					<!--<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('double click')" class="a-block">double click</a>
+					</li>-->
+					<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('long press')" class="a-block">long press</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('type text')" class="a-block">type text</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('tap')" class="a-block">tap</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('swipe')" class="a-block">swipe</a>
+					</li>
+					<li class="items">
+						<a href="javascript:void(0)" onclick="createElementStep('key event')" class="a-block">key event</a>
+					</li>
+				</ul>
+				<ul id="content_box" class="ul_box_menu_right ul_box c_left_if">
+					<li class="items value-item">
+						xpath<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_xpath"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_xpath" class="value-text">w.widgetXpath</span>
+					</li>
+					<li class="items value-item">
+						checkable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_checkable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_checkable" class="value-text">checkable</span>
+					</li>
+					<li class="items value-item">
+						Get text<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_text"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_text" class="value-text">w.text</span>
+					</li>
+					<li class="items value-item">
+						checked<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_checked"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_checked" class="value-text">checked</span>
+					</li>
+					<li class="items value-item">
+						class<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_klass"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_klass" class="value-text">w.klass</span>
+					</li>
+					<li class="items value-item">
+						clickable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_clickable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_clickable" class="value-text">clickable</span>
+					</li>
+					<li class="items value-item">
+						content-desc<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_content_desc"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_content_desc" class="value-text">w.content_desc</span>
+					</li>
+					<li class="items value-item">
+						dislayed<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_dislayed"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_dislayed" class="value-text">dislayed</span>
+					</li>
+					<li class="items value-item">
+						enabled<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_enabled"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_enabled" class="value-text">enabled</span>
+					</li>
+					<li class="items value-item">
+						focusable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_focusable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_focusable" class="value-text">focusable</span>
+					</li>
+					<li class="items value-item">
+						focused<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_focused"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_focused" class="value-text">focused</span>
+					</li>
+					<li class="items value-item">
+						index<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_index"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_index" class="value-text">w.index</span>
+					</li>
+					<li class="items value-item">
+						long-clickable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_longClickable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_longClickable" class="value-text">long-clickable</span>
+					</li>
+					<li class="items value-item">
+						package<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_packageName"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_packageName" class="value-text">w.packageName</span>
+					</li>
+					<li class="items value-item">
+						password<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_password"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_password" class="value-text">password</span>
+					</li>
+					<li class="items value-item">
+						scrollable<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_scrollable"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_scrollable" class="value-text">scrollable</span>
+					</li>
+					<li class="items value-item">
+						selected<a href="javascript:void(0)" class="btnCopy" data-clipboard-action="copy" data-clipboard-target="#tm_selected"><i class="iconfont icon-copy fr"></i></a>
+						<span id="tm_selected" class="value-text">selected</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 单击shift键盘事件  end -->
+		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/clipboard.min.js"></script>
+		<script src="js/socket.io.js"></script>
+		<script>
+			var stepIndex = 0;//全局索引
+			var tempJsonObj = null;
+			function createElementStep(action){
+				var html = '';//默认值  click
+				switch (action)
+				{
+				case "key event":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">keys</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "type text":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">keys</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "long press":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">Duration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "double click":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">WaitDuration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "swipe":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">Duration</p><p class="items_box"><input autocomplete="off" id="param_message" class="edit_input" value="2000" type="text"><p class="items_box">StartX</p><p class="items_box"><input autocomplete="off" id="StartX" class="edit_input" value="" type="text"><p class="items_box">StartY</p><p class="items_box"><input autocomplete="off" id="StartY" class="edit_input" value="" type="text"><p class="items_box">EndX</p><p class="items_box"><input autocomplete="off" id="EndX" class="edit_input" value="" type="text"><p class="items_box">EndY</p><p class="items_box"><input autocomplete="off" id="EndY" class="edit_input" value="" type="text"></p>';;
+				  break;
+				case "tap":
+				  html = '<p class="items_box">Input parameters</p><p class="items_box">x</p><p class="items_box"><input autocomplete="off" id="params_x" class="edit_input" value="" type="text"><p class="items_box">y</p><p class="items_box"><input autocomplete="off" id="params_y" class="edit_input" value="" type="text"><p class="items_box">fingers</p><p class="items_box"><input autocomplete="off" id="fingers" class="edit_input" value="" type="text"><p class="items_box">duration</p><p class="items_box"><input autocomplete="off" id="duration" class="edit_input" value="" type="text"></p>';;
+				  break;
+				default:
+				  html = '';
+				}
+				tempJsonObj = JSON.parse(widget_json);
+				$("#updateStep").css("display","block");
+				$("#tm_btn_create").css({"display":"inline-block","line-height":"22px"});
+				$("#tm_btn_save").css("display","none");
+				$("#tm_btn_update").css("display","none");
+				$("#testCaseId").val(caseId);
+				$("#step_content").html(action + " " + tempJsonObj.klass);
+				$("#xpath_content").html(tempJsonObj.widgetXpath);
+				$("#klass_content").html(tempJsonObj.klass);
+				$("#action_content").html(action);
+				$("#input_params").html(html);
+			}
+			/**鼠标移出canvas后，取消控件信息展示**/
+			$("#myCanvas,#canvas").bind("mouseout", function(e) {
+				$("#tipbox").css("display","none");
+			});
+			/*消息提示*/
+			function tip(message,cls){
+				$("#messagetip").remove();
+				$("body").append("<div id='messagetip'><span><i class='iconfont icon-bell'></i>"+message+"</span></div>");
+				$("#messagetip").animate({top:0},1000).delay(3000).animate({top:-60}).addClass(cls);
+			}
+			/**加载更换action和attribute菜单选项**/
+			$(function(){
+				$("#tcz_box").find("li").mouseover(function(){
+					var index = $(this).index();
+					var $cleft = $("#info_leftbox").find(".c_left_if").eq(index);
+					$cleft.show().siblings().hide();
+					$cleft.css("left",0);
+					$cleft.mouseleave(function(){
+						$(this).fadeOut("slow");
+					});
+				});
+				/**剪切板功能*/
+				if($(".btnCopy").length > 0) {
+					var clipboard = new ClipboardJS('.btnCopy');
+					clipboard.on('success', function(e) {
+						console.log(e);
+						tip("复制成功！","success");
+					});
+					clipboard.on('error', function(e) {
+						console.log(e);
+					});
+				}
+			});
+			//接口通用前缀地址
+			var staticPath = "http://125.76.215.202:8089/SAPlatform";
+			//场景用例id
+			var caseId = getQueryString("caseId");
+			/**页面初始化时  处理appname testname 及左侧已经录制过的步骤信息列表**/
+			$(function(){
+				$("#appName").html(getQueryString("appName"));
+				$("#testName").html(getQueryString("testName"));
+				$.ajax({
+					type:"post",
+					url:staticPath + "/step/loadSteps",
+					data:{"testCaseId":caseId},
+					success:function(data){
+						//console.log(JSON.stringify(data));
+						var html = "";
+						for(var i=0;i<data.length;i++){
+							stepIndex = data[i].indeks;
+							html += '<li class="items step'+data[i].indeks+'" value="'+data[i].indeks+'"><a href="javascript:void(0)" onclick="option.stepInfo('+data[i].testCaseId+','+data[i].indeks+')" class="a-block"><span class="step_index">'+data[i].indeks+'</span>'+data[i].action+" "+data[i].klass+'</a><a href="javascript:void(0)" onclick="option.remove('+data[i].testCaseId+','+data[i].indeks+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>';
+						}
+						$("#box_step").append(html);
+					}
+				});
+			});
+			/**获取场景用例参数*/
+			function getQueryString(name) {
+		      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		      var r = window.location.search.substr(1).match(reg);
+		      if (r != null) return unescape(r[2]); return null;
+			}
+			console.log("caseId="+caseId+",appName="+getQueryString("appName")+",testName="+getQueryString("testName"));
+			/*key input*/
+			var keyInput = {
+				dialog:function(){
+					$("#mask").remove();
+					$("body").append("<div id='mask'></div>");
+					$("#mask").addClass("mask").fadeIn("slow");
+					$("#LoginBox").fadeIn("slow");
+				},
+				commitInput:function(){
+					wsss.send("input:"+$("#message").val()+",x:"+$("#tipbox").data("x")+",y:"+$("#tipbox").data("y"));
+					keyInput.cancle();
+				},
+				cancle:function(){
+					$("#LoginBox").fadeOut("fast");
+					$("#mask").css({ display: 'none' });
+				}
+			}
+			
+			/*修改步骤信息*/
+			var option = {
+				/**
+				 * 查看步骤信息
+				 * @param {Object} caseId
+				 * @param {Object} indeks
+				 */
+				stepInfo:function(caseId,indeks){
+					$("#updateStep").css("display","block");
+					$("#tm_btn_update").css({"display":"inline-block","line-height":"22px"});
+					$("#tm_btn_save").css("display","none");
+					$("#tm_btn_create").css("display","none");
+					$.ajax({
+						type:"post",
+						url:staticPath + "/step/loadSteps",
+						data:{testCaseId:caseId,indeks:indeks},
+						success:function(data){
+							console.log(JSON.stringify(data));
+							$("#testCaseId").val(data[0].testCaseId);
+							$("#tm_hidden_id").val(data[0].id);
+							$("#step_content").html(data[0].action + " " + data[0].klass);
+							$("#comment_content").html(data[0].comments);
+							$("#xpath_content").html(data[0].xpath);
+							$("#klass_content").html(data[0].klass);
+							$("#action_content").html(data[0].action);
+							$("#time_content").html(data[0].responseTime);
+							$("#repeats_content").html(data[0].repeats);
+							$("#tm_btn_save").attr("data-caseid",caseId);
+							$("#tm_btn_save").attr("data-indeks",indeks);
+							$("#repeat_content").html(data[0].responseTime);
+						}
+					});
+				},
+				/**
+				 * 取消
+				 */
+				cancle:function(){
+					$("#updateStep").css("display","none");
+				},
+				/**
+				 * 更新步骤信息
+				 */
+				save:function(){
+					var indeks = $("#tm_btn_save").data("indeks");
+					//这里写更新业务功能  应该是需要调用更新api
+					console.log("##########"+$("#stepForm").serialize());
+					$.ajax({
+						type:"post",
+						url:staticPath + "/step/updateStepById",
+						data:$("#stepForm").serialize(),
+						success:function(data){
+							if(data=="success"){
+								option.stepInfo(caseId,indeks);
+							}
+						}
+					})
+				},
+				/**
+				 * 跳转到更新页面
+				 */
+				update:function(){
+					$("#tm_btn_save").css({"display":"inline-block","line-height":"22px"});
+					$("#tm_btn_update").css("display","none");
+					$("#tm_btn_create").css("display","none");
+					$("#step_content").html('<input autocomplete="off" name="step" class="edit_input" value="'+$("#step_content").html()+'" type="text"/>');
+					$("#comment_content").html('<input autocomplete="off" name="comments" class="edit_input" value="'+$("#comment_content").html()+'" type="text"/>');
+					$("#xpath_content").html('<textarea rows="6" name="xpath" class="edit_input">'+$("#xpath_content").html()+'</textarea>');
+					$("#klass_content").html('<input autocomplete="off" name="klass" class="edit_input" value="'+$("#klass_content").html()+'" type="text"/>');
+					$("#action_content").html('<input autocomplete="off" name="action" class="edit_input" value="'+$("#action_content").html()+'" type="text"/>');
+					$("#time_content").html('<input autocomplete="off" name="responseTime" class="edit_input" value="'+$("#time_content").html()+'" type="text"/>');
+					$("#repeats_content").html('<input autocomplete="off" name="repeats" class="edit_input" value="'+$("#repeats_content").html()+'" type="text"/>');
+				},
+				/**
+				 * 根据索引和场景用例id删除步骤信息
+				 * @param {Object} caseId
+				 * @param {Object} indeks
+				 */
+				remove:function(caseId,indeks){
+					$.ajax({
+						type:"post",
+						url:staticPath + "/step/deleteSteps",
+						data:{testCaseId:caseId,indeks:indeks},
+						success:function(data){
+							if(data=="success"){
+								tip("删除成功！","success");
+								$(".step"+indeks).remove();
+								stepIndex--;
+								var _index = 0;
+								$("#box_step li").each(function(){
+									$(this).find("span.step_index").html(_index);
+									_index++;
+								});
+							}
+						}
+					})
+				},
+				/**
+				 * 根据常见用例id 批量删除步骤信息  
+				 * @param {Object} obj
+				 */
+				removeAll:function(obj){
+					$.ajax({
+						type:"post",
+						url:staticPath + "/step/deleteSteps",
+						data:{testCaseId:caseId},
+						success:function(data){
+							if(data=="success"){
+								tip("删除成功！","success");
+								$(obj).parents("li").siblings().remove();
+							}
+						}
+					})
+				},
+				updateStep:function(){
+					option.stepInfo(caseId,$(".contextMenu").data("indeks"));
+					option.update();
+				},
+				/**
+				 * 创建步骤信息
+				 */
+				create:function(){
+					stepIndex++;
+					var action = $("#action_content").text();
+					var bounds = tempJsonObj["bounds"].join(",");
+					var message = $("#param_message").val();
+					var startX = $("#StartX").val();
+					var endX = $("#EndX").val();
+					var startY = $("#StartY").val();
+					var endY = $("#EndY").val();
+					var x = $("#params_x").val();
+					var y = $("#params_y").val();
+					var fingers = $("#fingers").val();
+					var duration = $("#duration").val();
+					
+					if(!isEmpty(message)){
+						message= "keys:" + message + ",";
+					}else{
+						message = "";
+					}
+					if(action == "tap"){
+						if(!isEmpty(x)){
+							message+= "x:" + x + ",";
+						}
+						if(!isEmpty(y)){
+							message+= "y:" + y + ",";
+						}
+						if(!isEmpty(fingers)){
+							message+= "fingers:" + fingers + ",";
+						}
+						if(!isEmpty(duration)){
+							message+= "keys:" + duration + ",";
+						}
+					}else if(action == "swipe"){
+						if(!isEmpty(startX)){
+							message+= "startX:" + startX + ",";
+						}
+						if(!isEmpty(startY)){
+							message+= "startY:" + startY + ",";
+						}
+						if(!isEmpty(endX)){
+							message+= "endX:" + endX + ",";
+						}
+						if(!isEmpty(endY)){
+							message+= "endY:" + endY + ",";
+						}
+					}else{//type text   key evnet等等会用到
+						var temp = tempJsonObj["bounds"];
+						//获取当前元素的坐标
+						message+= "x:" + temp[2] + ",";
+						message+= "y:" + ((temp[1] + temp[3]) / 2) + ",";
+					}
+					var testCaseStep = {
+						"testCaseId" : caseId,
+						"indeks" : stepIndex,
+						"responseTime" : 5,
+						"action" : action,
+						"xpath" : tempJsonObj.widgetXpath,
+						"text" : tempJsonObj.text,
+						"resourceId" :　tempJsonObj.tesource_id,
+						"contentDesc" : tempJsonObj.content_desc,
+						"message" : message,
+						"bindFunction":tempJsonObj.bindFunction,
+						"klass":tempJsonObj.klass,
+						"bounds":bounds
+					};
+					$.ajax({
+						type:"post",
+						url:staticPath + "/step/addTestCaseSteps",
+						data:{stepListStr:JSON.stringify([testCaseStep])},
+						success:function(data){
+							if(data == "success"){
+								tip("创建成功！","success");
+								$("#box_step").append('<li class="items step'+ (stepIndex) +'" value="'+ (stepIndex) +'"><a href="javascript:void(0)" onclick="option.stepInfo('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block">'+ stepIndex + " " + testCaseStep.action + " " + testCaseStep.klass +'</a><a href="javascript:void(0)" onclick="option.remove('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>');
+								$("#updateStep").css("display","none");
+								$("#tm_btn_update").css({"display":"inline-block","line-height":"22px"});
+								$("#tm_btn_save").css("display","none");
+								$("#tm_btn_create").css("display","none");
+								wsss.send("adb:"+action+","+message);
+							}
+						}
+					})
+				}
+			}
+			/**菜单功能**/
+			$(".box_m_items").hover(function() {
+				$("#box_menu").css("display", "block");
+				$("#box_menu").hover(function() {
+					$("#box_menu").css("display", "block");
+				}, function() {
+					$("#box_menu").css("display", "none");
+				});
+			}, function() {
+				$("#box_menu").css("display", "none");
+			});
+
+
+			/*jshint browser:true*/
+			var BLANK_IMG ='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+
+			var canvas = document.getElementById('canvas'),
+				g = canvas.getContext('2d')
+			
+			var myCanvas = document.getElementById("myCanvas");
+			var context = myCanvas.getContext("2d");
+			context.fillStyle = 'rgba(255, 255, 255, 0)';
+			context.lineWidth = "2";
+			myCanvas.width = 0;
+			myCanvas.height = 0;
+			var ws = new WebSocket('ws://localhost:9002', 'minicap')
+			ws.binaryType = 'blob'
+
+			ws.onclose = function() {
+				console.log('onclose', arguments)
+			}
+
+			ws.onerror = function() {
+				console.log('onerror', arguments)
+			}
+
+			ws.onmessage = function(message) {
+				var blob = new Blob([message.data], {
+					type: 'image/jpeg'
+				})
+				var URL = window.URL || window.webkitURL
+				var img = new Image()
+				img.onload = function() {
+					canvas.width = img.width;
+					canvas.height = img.height;
+					if(myCanvas.width==0||myCanvas.height==0){
+						myCanvas.width = img.width;
+						myCanvas.height = img.height;
+					}
+					g.drawImage(img, 0, 0)
+					img.onload = null
+					img.src = BLANK_IMG
+					img = null
+					u = null
+					blob = null
+				}
+				var u = URL.createObjectURL(blob)
+				img.src = u
+			}
+			ws.onopen = function() {
+				console.log('onopen', arguments)
+				ws.send('1920x1080/0')
+			}
+			
+			/**利用websocket通信去发信息到node**/
+			var wss = new WebSocket('ws://localhost:9003');
+
+			wss.onopen = function(e) {
+				console.log("连接服务器成功");
+			}
+			wss.onclose = function(e) {
+				console.log("服务器关闭");
+			}
+			wss.onerror = function() {
+				console.log("连接出错");
+			}
+
+			/*展示控件信息*/
+			var wsss = new WebSocket("ws://127.0.0.1:16488");
+			var result = document.querySelector('#result');
+
+			wsss.onopen = function() {
+				console.log('已连接上！');
+				document.getElementById("startConnection").style.color="#fff";
+				document.getElementById("startConnection").innerHTML="启动";
+				document.getElementById("startConnection").onclick = startConnection;
+			}
+			// 下面可以改成鼠标的监听器，然后将鼠标的事件一个发送个agent，另一个使用展示控件的js代码
+			/*
+			document.querySelector('form').onsubmit = function(e) {
+			  var msg = document.querySelector('#m').value;
+			  wsss.send(msg);
+			  return false;
+			}
+			*/
+			function startConnection() {
+				wsss.send("start");
+				$("#startConnection").html("暂停");
+			}
+			var jsonStr = "";
+			wsss.onmessage = function(e) {
+				// alert(e.data);
+				if(e.data.startsWith("data:")) {
+					str = e.data.replace("data:", "");
+					setJsonStr(str);
+					// map = JSON.parse(str);
+				}
+			}
+			wsss.onclose = function() {
+				console.log('连接已关闭！');
+				document.getElementById("startConnection").style.color="#ed1c24";
+				document.getElementById("startConnection").innerHTML="连接关闭";
+				document.getElementById("startConnection").onclick = "#";
+			}
+			
+			document.getElementById("myCanvas").onmousemove = function(e) {
+				var arrs = mouseMove(e);
+				drawBorder(arrs);
+			};
+
+			function setJsonStr(json) {
+				jsonStr = json;
+			}
+
+			function mouseMove(event) {
+				var left, top;
+				var sign = $('#myCanvas');
+				top1 = sign.offset().top;
+				// console.log(top1)
+				left = sign.offset().left;
+				// console.log(left)
+
+				var x = event.clientX - parseInt(left);
+				var y = event.clientY - parseInt(top1);
+				return [x, y];
+			}
+
+			function drawBorder(arrs) {
+				if(jsonStr) {
+					jsons = jsonStr;
+					var maps = JSON.parse(jsons);
+					context.clearRect(0, 0, myCanvas.width , myCanvas.height);
+					// console.log(maps);
+					if(maps[0]) {
+						drawBorder_1(arrs, maps);
+					}
+				}
+			}
+
+			var widget_json = "";
+			function drawBorder_1(arrs, map) {
+				var widget = drawBorder_1_getWidget(arrs,map);
+				if(widget){
+					var arr = widget["bounds"];
+					context.strokeRect(arr[0] / 3, arr[1] / 3, (arr[2] - arr[0]) / 3, (arr[3] - arr[1]) / 3);
+					widget_json = JSON.stringify(widget);
+					showTipBox(arr);
+				}
+			}
+			
+			function drawBorder_1_getWidget(arrs,map){
+				var deep = 0;
+				var widget_d = null;
+				var widget_s = null;
+				var list = [];
+				var square = myCanvas.width*myCanvas.height;
+				for(var prop in map){
+					var arr = map[prop]["bounds"];
+					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
+						if(judgeChildMap(arrs,map[prop])){
+							drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep,list);
+						}else{
+							list.push({"deep":deep,"widget":map[prop]});
+						}
+					}
+				}
+				var temp = 0;
+				for (var w in list){
+					if (list[w].deep >= temp){
+						temp = list[w].deep;
+						widget_d = list[w].widget;
+					}
+					if(list[w].square<=square){
+						square = list[w].square;
+						widget_s = list[w].widget;
+					}
+				}
+				if(widget_d == widget_s){
+					return widget_d;
+				}else{
+					return widget_s;
+				}
+			}
+			
+			function drawBorder_2_getWidget(arrs,map,deep,list){
+				var flag = false;
+				for(var prop in map){
+					var arr = map[prop]["bounds"];
+					if (arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
+						flag = true;
+						if(map[prop]["childMap"]&&judgeChildMap(arrs,map[prop])){
+							drawBorder_2_getWidget(arrs,map[prop]["childMap"],deep+1,list);
+						}else{
+							list.push({"deep":deep,"widget":map[prop],"square":(arr[2]-arr[0])*(arr[3]-arr[1])});
+						}
+					}
+				}
+			}
+
+			//save&exit steps
+
+			function saveSteps(){
+				$.ajax({
+					type:"post",
+					url:staticPath + "/api/generate/"+caseId,
+					success:function(data){
+						tip("保存成功！","success");
+					}
+				})
+			}
+
+			//按录制步骤运行脚本
+			function runSteps(){
+				wsss.send("run:"+getQueryString("appName")+","+getQueryString("testName"));
+			}
+
+			
+			function click4Step(action,info){
+				var w = JSON.parse(widget_json);
+				console.log(w);
+				stepIndex++;
+				var bounds = w["bounds"].join(",");
+				var testCaseStep = {
+					"testCaseId" : caseId,
+					"indeks" : stepIndex,
+					"responseTime" : 5,
+					"action" : action,
+					"xpath" : w["widgetXpath"],
+					"text" : w["text"],
+					"resourceId" :　w["tesource_id"],
+					"contentDesc" : w["content_desc"],
+					"message" : info,
+					"bindFunction":w["bindFunction"],
+					"klass":w["klass"],
+					"bounds":bounds
+				};
+				$.ajax({
+					type:"post",
+					url:staticPath + "/step/addTestCaseSteps",
+					data:{stepListStr:JSON.stringify([testCaseStep])},
+					success:function(data){
+						tip("创建成功！","success");
+						$("#box_step").append('<li class="items step'+ stepIndex +'" value="'+ stepIndex +'"><a href="javascript:void(0)" onclick="option.stepInfo('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block">'+ stepIndex + " " + testCaseStep.action + " " + testCaseStep.klass +'</a><a href="javascript:void(0)" onclick="option.remove('+testCaseStep.testCaseId+','+stepIndex+')" class="a-block down_menu"><i class="iconfont icon-shanchu"></i></a></li>');
+					}
+				})
+			}
+
+			var tipBox = document.getElementById("tipbox");
+
+			function showTipBox(bounds) {
+				var w = JSON.parse(widget_json);
+				var x = bounds[2];
+				var y = (bounds[1] + bounds[3]) / 2;
+				tipBox.setAttribute("style", "display:block;left:" + x / 3 + "px;top:" + (y / 3 - 45) + "px;");
+				$("#info_xpath").text(w.klass);
+				$("#tipbox").attr("data-x",x);
+				$("#tipbox").attr("data-y",y);
+			}
+
+			function judgeChildMap(arrs, map) {
+				for(var prop in map["childMap"]) {
+					var arr = map["childMap"][prop]["bounds"];
+					if(arrs[0] >= arr[0] / 3 && arrs[1] >= arr[1] / 3 && arrs[0] < arr[2] / 3 && arrs[1] < arr[3] / 3) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			var startX = 0;
+			var startY = 0;
+			var endX = 0;
+			var endY = 0;
+			var downFlag = false;
+			var upFlag = false;
+			$(function() {
+				var top = $("#box_canvas").offset().top;
+				var left = $("#box_canvas").offset().left;
+
+				var timer = null;
+				$("#myCanvas,#canvas").bind("dblclick", function(e) {
+					timer = setTimeout(function() {
+						e.preventDefault();
+						console.log("dblclick");
+						wss.send("d 0 " + (e.pageX - left) * 3 + " " + (e.pageY - top) * 3 + " 50\nc\nu 0\nc\n");
+					}, 100);
+					click4Step("click", "");
+				});
+
+				$("#myCanvas,#canvas").bind("mousedown", function(e) {
+					e.preventDefault();
+					startX = e.pageX - left;
+					startY = e.pageY - top;
+					downFlag = true;
+				});
+
+				$("#myCanvas,#canvas").bind("mouseup", function(e) {
+					e.preventDefault();
+					endX = e.pageX - left;
+					endY = e.pageY - top;
+					upFlag = true;
+				});
+
+				$("#myCanvas,#canvas").bind("mousemove", function(e) {
+					timer = setTimeout(function() {
+						var X = endX - startX;
+						var Y = endY - startY;
+						if((upFlag == true && downFlag == true) && (Math.abs(X) > 100 || Math.abs(Y) > 100)) {
+							console.log("d 0 " + startX * 3 + " " + startY * 3 + " 50\nc\nm 0 " + endX * 3 + " " + endY * 3 + " 50\nc\nu 0\nc\n");
+							wss.send("d 0 " + startX * 3 + " " + startY * 3 + " 50\nc\nm 0 " + endX * 3 + " " + endY * 3 + " 50\nc\nu 0\nc\n");
+							// click4Step("swipe",startX*3+","+startY*3+","+endX*3+ "," +endY*3);
+							downFlag = false;
+							upFlag = false;
+						}
+					}, 50);
+				});
+
+			});
+			/*
+				右键菜单：
+				知识点：鼠标事件 mousedown mousemove mouseover mouseleave mouseup
+				鼠标事件：绑定document
+			*/
+			var displayFlag = false;
+			function shouMenu(obj,caseId,indeks) {
+				var top1 = parseInt($(obj).parents("li").css("height"));
+				var left1 = parseInt($(obj).parents("li").css("width"));
+				var left2 = $(obj).parents("li")[0].offsetLeft;
+				var top2 = $(obj).parents("li")[0].offsetTop;
+				$(".contextMenu").css({
+					"display": displayFlag?"none":"inline-block",
+					"left": left1-left2,
+					"top": top1+top2
+				});
+				displayFlag = !displayFlag;
+				$(".contextMenu").attr("data-caseid",caseId);
+				$(".contextMenu").attr("data-indeks",indeks);
+			}
+			
+			/**判断非空*/
+			function isEmpty(val) {
+				val = $.trim(val);
+				if (val == null)
+					return true;
+				if (val == undefined || val == 'undefined')
+					return true;
+				if (val == "")
+					return true;
+				if (val.length == 0)
+					return true;
+				if (!/[^(^\s*)|(\s*$)]/.test(val))
+					return true;
+				return false;
+			}
+			
+			$(document).keydown(function(event){
+				if(event.keyCode == 32 && event.ctrlKey) { //这里只能用alt，shift，ctrl等去组合其他键event.altKey、event.ctrlKey、event.shiftKey 属性
+					$("#keymask").remove();
+					$("body").append("<div id='keymask'></div>");
+					$("#keymask").addClass("mask").fadeIn("slow");
+					$("#dg_box_menu").fadeIn("slow");
+					var w = JSON.parse(widget_json);
+					var checkable = false;
+					var checked = false;
+					var clickable = false;
+					var enabled = false;
+					var focusable = false;
+					var focused = false;
+					var scrollable = false;
+					var longClickable = false;
+					var password = false;
+					var selected = false;
+					var bindFunction = w.bindFunction;
+					if(!isEmpty(bindFunction)){
+						var ables = w.bindFunction.split(",");
+						for (var i = 0; i < ables.length; i++) {
+							switch (ables[i])
+							{
+							case "01":
+							  checkable = true;
+							  break;
+							case "02":
+							  checked = true;
+							  break;
+							case "03":
+							  clickable = true;
+							  break;
+							case "04":
+							  enabled = true;
+							  break;
+							case "05":
+							  focusable = true;
+							  break;
+							case "06":
+							  focused = true;
+							  break;
+							case "07":
+							  scrollable = true;
+							  break;
+							case "08":
+							  longClickable = true;
+							  break;
+							case "09":
+							  password = true;
+							  break;
+							case "10":
+							  selected = true;
+							  break;
+							}
+						}
+					}
+					$("#tm_xpath").text(w.widgetXpath);
+					$("#tm_xpath").parents("li.value-item").attr("title",w.widgetXpath);
+					$("#tm_checkable").text(checkable);
+					$("#tm_text").text(w.text);
+					$("#tm_checked").text(checked);
+					$("#tm_klass").text(w.klass);
+					$("#tm_clickable").text(clickable);
+					$("#tm_content_desc").text(w.content_desc);
+					//$("#tm_dislayed").text(w.dislayed);
+					$("#tm_enabled").text(enabled);
+					$("#tm_focusable").text(focusable);
+					$("#tm_focused").text(focused);
+					$("#tm_index").text(w.index);
+					$("#tm_longClickable").text(longClickable);
+					$("#tm_packageName").text(w.packageName);
+					$("#tm_password").text(password);
+					$("#tm_scrollable").text(scrollable);
+					$("#tm_selected").text(selected);
+				}
+			});
+			$(document).click(function(){
+				$("#dg_box_menu").fadeOut("fast");
+				$("#keymask").css({ display: 'none' });
+			});
+		</script>
+	</body>
+</html>
